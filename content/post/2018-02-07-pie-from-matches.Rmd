@@ -1,0 +1,359 @@
+---
+title: pie from matches
+author: Ty Tuff
+date: '2018-02-07'
+slug: pie-from-matches
+categories: []
+tags: []
+---
+
+
+
+Make a match
+```{r}
+match_stick_length <- 10
+number_of_matches_in_a_box <- 1000
+distance_between_surface_lines <- 20
+
+point_1 <- c(-(match_stick_length/2),(match_stick_length/2))
+point_2 <- c(0.01,0.01)
+single_match <-cbind(point_1, point_2)
+rownames(single_match)<- c("point_1","point_2")
+colnames(single_match)<- c("x","y")
+single_match
+```
+
+
+```{r}
+library(rgl)
+plotids <- with(iris, plot3d(single_match[,1], single_match[,2], c(0,0), 
+                  type="s", col=as.numeric(Species)))
+rglwidget(elementId = "plot3drgl")
+```
+
+
+
+
+
+```{r, echo=FALSE}
+library(rgl)
+library(shiny)
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,10), ylim=c(-10,10))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+lines(single_match, col=adjustcolor("firebrick", 0.8), lwd=8)
+points(single_match, col="limegreen", pch=19, cex=5)
+
+
+
+```
+
+Throw the match
+
+First rotate around the origin
+
+```{r}
+#install.packages("DescTools")
+library(DescTools)
+single_match_coords <- xy.coords(single_match)
+after_rotation <-Rotate(single_match_coords$x, single_match_coords$y, 90*pi/180)
+
+
+point_coords = single_match
+
+rotate_needle <- function(angle=45, point_coords){
+  angle_input <- angle*pi/180
+xy <- as.matrix(point_coords)
+    cos.angle <- cos(angle_input)
+    sin.angle <- sin(angle_input)
+    after_rotation <- point_coords
+    after_rotation[1:2,1:2] <- rep(NA,4)
+    after_rotation[1,] <- t(as.matrix(xy[1,])) %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2))
+    after_rotation[2,] <- t(as.matrix(xy[2,])) %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2))
+    return(after_rotation)
+}
+
+after_rotation <- rotate_needle(15, single_match)
+
+
+
+```
+
+
+```{r}
+
+
+polar_circle <- matrix(NA,4,361)
+
+for (k in seq(0,361,length.out=360)){  ## long, angle measured counter clockwise looking down the north pole 		#from the x-axis. 
+	
+	#i <- 89
+	#k <- 55
+	
+	
+	up <- 23.44 * (pi/180)
+	around <- k * (pi/180)
+	
+	 p <- 1
+	 x <- p * sin(up) * cos (around) 
+	 y <- p * sin(up) * sin (around)
+	 z <- p * cos(up)  
+	
+	xyz <- xyz.coords(x,y,z)
+	polar_circle[1,k] <- as.numeric(xyz[1])
+	polar_circle[2,k] <- as.numeric(xyz[2])
+	polar_circle[3,k] <- as.numeric(xyz[3])
+	polar_circle[4,k] <- 1
+	
+	}
+
+#rgl.clear()
+rotate_arctic <- 90*(pi/180)
+rotate_antarctic <- 270*(pi/180)
+arctic_x_L_rotation_matrix <- matrix(c(1,0,0,0,0,cos(rotate_arctic),-sin(rotate_arctic),0,0,sin(rotate_arctic),cos(rotate_arctic),0,0,0,0,1),4,4)
+antarctic_x_L_rotation_matrix <- matrix(c(1,0,0,0,0,cos(rotate_antarctic),-sin(rotate_antarctic),0,0,sin(rotate_antarctic),cos(rotate_antarctic),0,0,0,0,1),4,4)
+artic_circle <- arctic_x_L_rotation_matrix %*% polar_circle
+antartic_circle <- antarctic_x_L_rotation_matrix %*% polar_circle
+
+
+```
+
+
+
+
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,10), ylim=c(-10,10))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+lines(single_match, col=adjustcolor("red", 0.8), lwd=8)
+lines(after_rotation, col=adjustcolor("blue", 0.8), lwd=8)
+points(single_match, col="limegreen", pch=19, cex=1)
+points(after_rotation, col="limegreen", pch=19, cex=1)
+```
+
+```{r}
+after_rotation
+sqrt((single_match[1,2]- single_match[1,1])^2+(single_match[2,2]- single_match[2,1])^2)
+sqrt((after_rotation[1,2]- after_rotation[1,1])^2+(after_rotation[2,2]- after_rotation[2,1])^2)
+```
+
+
+
+
+Then translate that line onto the table
+
+```{r}
+
+new_coord <- after_rotation + matrix(c(50,50,50,50),2,2)
+
+```
+
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,100), ylim=c(-10,100))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+lines(single_match, col=adjustcolor("red", 0.8), lwd=8)
+lines(new_coord, col=adjustcolor("blue", 0.8), lwd=8)
+
+```
+
+
+Repeat for an entire box of matches
+
+```{r}
+Throwing_matches <- function(){
+  single_match <-cbind(c(-5,5),c(0,0))
+  angle <- runif(1, min=1, max=360)*pi/180
+  xy <- as.matrix(single_match)
+  
+  # Rotation
+  cos.angle <- cos(angle)
+  sin.angle <- sin(angle)
+  after_rotation <- xy %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2))
+  
+  # Translation
+  translation.x <- runif(1, min=10, max=90)
+  translation.y <- runif(1, min=10, max=90)
+  translation <- matrix(c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord <- after_rotation + translation
+  
+  
+  return(new_coord)   
+}
+
+Throwing_matches()
+```
+
+```{r}
+for(i in 1:1000){
+Throwing_matches()
+}
+```
+
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,110), ylim=c(-10,110))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+
+for(i in 1:number_of_matches_in_a_box){
+lines(Throwing_matches(), col=adjustcolor("blue", 0.8), lwd=3)
+}
+
+```
+
+
+```{r}
+
+surface_line <- function(line_height = 0){matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)}
+
+  surface_line(20)
+  
+ 
+```
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,110), ylim=c(-10,110))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+
+
+lines(surface_line(30), col=adjustcolor("red", 0.8), lwd=3)
+
+```
+
+
+
+```{r}
+#install.packages("retistruct")
+library(retistruct)
+one_match <- Throwing_matches()
+one_surface_line <- surface_line(30)
+line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)
+
+```
+
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,110), ylim=c(-10,110))
+#axis(1, pos=0, at=c(seq(-10,100, by = 10)))
+#axis(2, pos=0, at=c(seq(-10,100, by = 10)))
+abline(v=0)
+abline(h=0)
+a <- line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)
+lines(one_surface_line, col=adjustcolor("red", 0.8), lwd=3)
+lines(one_match, col=adjustcolor("blue", 0.8), lwd=3)
+points(a[1], a[2], cex=6, col="red")
+
+```
+
+
+
+
+Make a list of surface lines and a list of matches
+
+```{r}
+
+list_of_matches <- array(NA,dim = c(2,2,number_of_matches_in_a_box))
+list_of_surface_lines <- array(NA,dim = c(2,2,6))
+
+for(i in 1:number_of_matches_in_a_box){
+  list_of_matches[,,i] <- Throwing_matches()
+}
+
+for(i in 1:6){
+  line_placement <- seq(0,100, by=20)
+  list_of_surface_lines[,,i] <- surface_line(line_placement[i])
+}
+
+```
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,110), ylim=c(-10,110))
+
+for(i in 1:6){
+lines(list_of_surface_lines[,,i], col=adjustcolor("firebrick", 1), lwd=3)
+
+}
+
+for(i in 1:1000){
+lines(list_of_matches[,,i], col=adjustcolor("cornflowerblue", 1), lwd=2)
+}
+
+```
+
+
+
+```{r}
+line_crossings <- matrix(NA,  dim(list_of_matches)[3] * dim(list_of_surface_lines)[3], 2)
+counter <- 1
+i <- 5
+for(i in 1:dim(list_of_matches)[3]){
+  for(j in 1:dim(list_of_surface_lines)[3]){
+    
+    line_crossings[counter,] <- line.line.intersection(list_of_matches[1,,i], list_of_matches[2,,i], list_of_surface_lines[1,,j], list_of_surface_lines[2,,j], interior.only = TRUE)
+    
+    counter <- counter + 1
+  }
+}
+
+presence_of_line_crossing <- as.numeric(!is.na(line_crossings[,1]))
+
+```
+
+```{r, echo=FALSE}
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,110), ylim=c(-10,110))
+
+ 
+
+for(i in 1:6){
+lines(list_of_surface_lines[,,i], col=adjustcolor("firebrick", 1), lwd=3)
+
+}
+
+for(i in 1:1000){
+  if(presence_of_line_crossing[i] == 0){
+lines(list_of_matches[,,i], col=adjustcolor("cornflowerblue", 1), lwd=2)
+  }else{
+    lines(list_of_matches[,,i], col=adjustcolor("limegreen", 1), lwd=2)
+  }
+}
+
+
+
+
+```
+
+
+
+```{r}
+
+match_crosses_line <- length(which(!is.na(line_crossings[,1])==TRUE))
+pi_estimate <- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * match_crosses_line)
+pi_estimate
+```
+
+
+
+
+
+
+
+
+
+
