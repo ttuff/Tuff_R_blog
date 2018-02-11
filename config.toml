@@ -8,9 +8,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
-    image = "Logo.png"
+   
 
-
+subtitle = "Hugo is Absurdly Fast!"
 [[menu.main]]
     name = "About"
     url = "/about/"
@@ -22,6 +22,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "https://twitter.com/ty_tuff"
 
 [params]
+
     description = "Talking quantitative thinking in Ecology and Evolution"
 
     # options for highlight.js (version, additional languages, and theme)
