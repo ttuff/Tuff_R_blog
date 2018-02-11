@@ -24,7 +24,7 @@ single_match
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(rgl)
 
  hand <- readLines("~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus 'California Gull'/gull_obj/CaliforniaGull_obj.obj")
