@@ -26,8 +26,22 @@ single_match
 
 ```{r}
 library(rgl)
-plotids <- with(iris, plot3d(single_match[,1], single_match[,2], c(0,0), 
-                  type="s", col=as.numeric(Species)))
+
+ hand <- readLines("~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus 'California Gull'/gull_obj/CaliforniaGull_obj.obj")
+poly <- grepl("^f ", hand)
+hand[poly] <- gsub("/[^ ]+", "", hand[poly])
+handmesh <- readOBJ(textConnection(hand))
+
+plotids <- with(iris, 
+                #plot3d(single_match[,1], single_match[,2], c(0,0), 
+                #  type="s", col=as.numeric(Species))
+
+      
+      shade3d(handmesh, col = "pink")
+      
+      #par3d(userMatrix = rotate3d(par3d("userMatrix"), 1.5, 1,0,0))
+
+                )
 rglwidget(elementId = "plot3drgl")
 ```
 
