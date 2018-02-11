@@ -21,5 +21,25 @@
 match_stick_length &amp;lt;- 10 number_of_matches_in_a_box &amp;lt;- 1000 distance_between_surface_lines &amp;lt;- 20 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0.01,0.01) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match ## x y ## point_1 -5 0.01 ## point_2 5 0.01 library(rgl) hand &amp;lt;- readLines(&amp;quot;~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus &amp;#39;California Gull&amp;#39;/gull_obj/CaliforniaGull_obj.obj&amp;quot;) poly &amp;lt;- grepl(&amp;quot;^f &amp;quot;, hand) hand[poly] &amp;lt;- gsub(&amp;quot;/[^ ]+&amp;quot;, &amp;quot;&amp;quot;, hand[poly]) handmesh &amp;lt;- readOBJ(textConnection(hand)) ## Warning in readOBJ(textConnection(hand)): Instructions &amp;quot;mtllib&amp;quot;, &amp;quot;g&amp;quot;, ## &amp;quot;usemtl&amp;quot; ignored plotids &amp;lt;- with(iris, #plot3d(single_match[,1], single_match[,2], c(0,0), # type=&amp;quot;s&amp;quot;, col=as.</description>
     </item>
     
+    <item>
+      <title>Buffon&#39;s needles</title>
+      <link>/2018/12/07/pie-from-matches/</link>
+      <pubDate>Fri, 07 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/12/07/pie-from-matches/</guid>
+      <description>Make a match
+match_stick_length &amp;lt;- 10 number_of_matches_in_a_box &amp;lt;- 1000 distance_between_surface_lines &amp;lt;- 20 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0.01,0.01) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match  ## x y ## point_1 -5 0.01 ## point_2 5 0.01  library(rgl) hand &amp;lt;- readLines(&amp;quot;~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus &#39;California Gull&#39;/gull_obj/CaliforniaGull_obj.obj&amp;quot;) poly &amp;lt;- grepl(&amp;quot;^f &amp;quot;, hand) hand[poly] &amp;lt;- gsub(&amp;quot;/[^ ]+&amp;quot;, &amp;quot;&amp;quot;, hand[poly]) handmesh &amp;lt;- readOBJ(textConnection(hand))  ## Warning in readOBJ(textConnection(hand)): Instructions &amp;quot;mtllib&amp;quot;, &amp;quot;g&amp;quot;, ## &amp;quot;usemtl&amp;quot; ignored  plotids &amp;lt;- with(iris, #plot3d(single_match[,1], single_match[,2], c(0,0), # type=&amp;quot;s&amp;quot;, col=as.</description>
+    </item>
+    
+    <item>
+      <title>Buffon&#39;s needles</title>
+      <link>/2018/12/07/pie-from-matches/</link>
+      <pubDate>Fri, 07 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/12/07/pie-from-matches/</guid>
+      <description>Make a match
+match_stick_length &amp;lt;- 10 number_of_matches_in_a_box &amp;lt;- 1000 distance_between_surface_lines &amp;lt;- 20 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0.01,0.01) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match  ## x y ## point_1 -5 0.01 ## point_2 5 0.01  library(rgl) hand &amp;lt;- readLines(&amp;quot;~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus &#39;California Gull&#39;/gull_obj/CaliforniaGull_obj.obj&amp;quot;) poly &amp;lt;- grepl(&amp;quot;^f &amp;quot;, hand) hand[poly] &amp;lt;- gsub(&amp;quot;/[^ ]+&amp;quot;, &amp;quot;&amp;quot;, hand[poly]) handmesh &amp;lt;- readOBJ(textConnection(hand))  ## Warning in readOBJ(textConnection(hand)): Instructions &amp;quot;mtllib&amp;quot;, &amp;quot;g&amp;quot;, ## &amp;quot;usemtl&amp;quot; ignored  plotids &amp;lt;- with(iris, #plot3d(single_match[,1], single_match[,2], c(0,0), # type=&amp;quot;s&amp;quot;, col=as.</description>
+    </item>
+    
   </channel>
 </rss>
