@@ -27,7 +27,7 @@ single_match
 ```{r, echo=FALSE}
 library(rgl)
 
- hand <- readLines("~/Atheria as folder/Stationary migrants/3d wire and solid shapes/Larus Californicus 'California Gull'/gull_obj/CaliforniaGull_obj.obj")
+ hand <- readLines("~/Desktop/GitHub/Buffon_needles/Larus Californicus 'California Gull'/gull_obj/CaliforniaGull_obj.obj")
 poly <- grepl("^f ", hand)
 hand[poly] <- gsub("/[^ ]+", "", hand[poly])
 handmesh <- readOBJ(textConnection(hand))
