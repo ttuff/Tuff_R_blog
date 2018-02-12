@@ -1,0 +1,243 @@
+---
+title: "Habits"
+author: "John Doe"
+date: "March 22, 2005"
+output:
+  xaringan::moon_reader:
+     lib_dir: libs
+     mathjax: null
+     nature:
+       highlightStyle: github
+       countIncrementalSlides: false
+---
+
+# Revolutionary Migration 
+
+
+
+## persp3d() is better than persp()
+
+
+```{r cylinder,echo=FALSE, eval=TRUE}
+library(rgl)
+z <- matrix(seq(0, 1, len=50), 50, 50)
+theta <- t(z)
+r <- 1 + exp( -pmin( (z - theta)^2, 
+		     (z - theta - 1)^2, 
+		     (z - theta + 1)^2 )/0.01 )
+x <- r*cos(theta*2*pi)
+y <- r*sin(theta*2*pi)
+
+persp3d(x, y, z, col="red")
+
+```
+
+
+
+```{r, echo=FALSE}
+rglwidget()
+```
+
+
+
+
+## planet
+
+```{r, echo=FALSE, results=FALSE}
+
+#setwd("~/Atheria as folder/Time sine project/R files/ESA versions")
+
+## Run this to read in functions
+library(rgl)
+display_0 <- as.matrix(read.csv("~/Atheria as folder/Time sine project/R files/ESA versions/Display_correct_Long_=_0__Lat_=_0.csv"))
+display_90 <- as.matrix(read.csv("~/Atheria as folder/Time sine project/R files/ESA versions/Display_correct_Long_=_90__Lat_=_0.csv"))
+display_270 <- as.matrix(read.csv("~/Atheria as folder/Time sine project/R files/ESA versions/Display_correct_Long_=_270__Lat_=_0.csv"))
+
+rotate_0 <- 180*(pi/180)
+zero_x_L_rotation_matrix <- matrix(c(1,0,0,0,0,cos(rotate_0),-sin(rotate_0),0,0,sin(rotate_0),cos(rotate_0),0,0,0,0,1),4,4)
+display_180 <- zero_x_L_rotation_matrix %*% display_0 
+
+axis_line <- matrix(c(rep(0,360),seq(2,-2,length.out=360),rep(0,360),rep(1,360)),4,360,byrow=TRUE)
+equator_line <- matrix(NA,4,361)
+for (k in seq(0,361,length.out=360)){  ## long, angle measured counter clockwise looking down the north pole 		#from the x-axis. 
+	
+	#i <- 89
+	#k <- 55
+	
+	
+	up <- k * (pi/180)
+	around <- 1 * (pi/180)
+	
+	 p <- .99
+	 x <- p * sin(up) * cos (around) 
+	 y <- p * sin(up) * sin (around)
+	 z <- p * cos(up)  
+	
+	xyz <- xyz.coords(x,y,z)
+	equator_line[1,k] <- as.numeric(xyz[1])
+	equator_line[2,k] <- as.numeric(xyz[2])
+	equator_line[3,k] <- as.numeric(xyz[3])
+	equator_line[4,k] <- 1
+	
+	}
+
+
+polar_circle <- matrix(NA,4,361)
+
+for (k in seq(0,361,length.out=360)){  ## long, angle measured counter clockwise looking down the north pole 		#from the x-axis. 
+	
+	#i <- 89
+	#k <- 55
+	
+	
+	up <- 23.44 * (pi/180)
+	around <- k * (pi/180)
+	
+	 p <- 1
+	 x <- p * sin(up) * cos (around) 
+	 y <- p * sin(up) * sin (around)
+	 z <- p * cos(up)  
+	
+	xyz <- xyz.coords(x,y,z)
+	polar_circle[1,k] <- as.numeric(xyz[1])
+	polar_circle[2,k] <- as.numeric(xyz[2])
+	polar_circle[3,k] <- as.numeric(xyz[3])
+	polar_circle[4,k] <- 1
+	
+	}
+
+#rgl.clear()
+rotate_arctic <- 90*(pi/180)
+rotate_antarctic <- 270*(pi/180)
+arctic_x_L_rotation_matrix <- matrix(c(1,0,0,0,0,cos(rotate_arctic),-sin(rotate_arctic),0,0,sin(rotate_arctic),cos(rotate_arctic),0,0,0,0,1),4,4)
+antarctic_x_L_rotation_matrix <- matrix(c(1,0,0,0,0,cos(rotate_antarctic),-sin(rotate_antarctic),0,0,sin(rotate_antarctic),cos(rotate_antarctic),0,0,0,0,1),4,4)
+artic_circle <- arctic_x_L_rotation_matrix %*% polar_circle
+antartic_circle <- antarctic_x_L_rotation_matrix %*% polar_circle
+
+
+
+### sun's disc
+n <- 362
+day_move <- array(0, dim=c(4,361,181),dimnames= list(as.character(c("x","y","z","w")),paste("Theta = ",c(0:180,-179:0),sep=""), paste("Phi = ",c(90:0,-1:-90),sep="")))
+
+for (i in seq(0, 181, length.out=n)){  ## lat, angle measured from north pole down
+	for (k in seq(0,361,length.out=n)){  ## long, angle measured counter clockwise looking down the north pole 		#from the x-axis. 
+	
+	#i <- 89
+	#k <- 270
+	
+	
+	phi <- i * (pi/180)
+	theta <- k * (pi/180)
+	
+	 p <- 1.0001
+	 x <- p * sin(phi) * cos (theta) 
+	 y <- p * sin(phi) * sin (theta)
+	 z <- p * cos(phi)  
+	
+	xyz <- xyz.coords(x,y,z)
+	day_move[1,k,i] <- as.numeric(xyz[1])
+	day_move[2,k,i] <- as.numeric(xyz[2])
+	day_move[3,k,i] <- as.numeric(xyz[3])
+	day_move[4,k,i] <- 1
+	
+	#day_move[,346,] <- 0
+	
+	}}
+
+
+
+day <- 295
+day_rotation <- (day+90)*(pi/180)  ## I think this is currently turning the wrong direction
+
+day_y_L_rotation_matrix <-  matrix(c(cos(day_rotation),-sin(day_rotation),0,0,sin(day_rotation),cos(day_rotation),0,0,0,0,1,0,0,0,0,1),4,4)
+
+sun_rotation_array <- apply(day_move[1:4,,],c(2,3),function(x)  day_y_L_rotation_matrix %*% as.matrix(x)) 
+
+
+rotate_path_function <- function(deg_rot, time, clear){
+
+if(clear==TRUE){rgl.clear()}
+
+#deg_rot <- 0
+#time <- "All"
+
+rgl.spheres(axis_line[1,],axis_line[2,],axis_line[3,],.05,col="firebrick")
+rgl.spheres(equator_line[1,],equator_line[2,],equator_line[3,],.01,col="firebrick",alpha=1)
+rgl.spheres(artic_circle[1,],artic_circle[2,],artic_circle[3,],.01,col="firebrick",alpha=1)
+rgl.spheres(antartic_circle[1,],antartic_circle[2,],antartic_circle[3,],.01,col="firebrick",alpha=1)
+
+rotate_paths <- deg_rot*(pi/180)
+y_L_rotation_matrix <-  matrix(c(cos(rotate_paths),0,sin(rotate_paths),0,0,1,0,0,-sin(rotate_paths),0,cos(rotate_paths),0,0,0,0,1),4,4,byrow=TRUE)
+line_up_0 <- y_L_rotation_matrix %*% display_0
+line_up_90 <- y_L_rotation_matrix %*% display_90
+line_up_270 <- y_L_rotation_matrix %*% display_270
+line_up_180 <- y_L_rotation_matrix %*% display_180
+
+if(time == "Sunrise"){rgl.points(line_up_270[1,4:358],line_up_270[2,4:358],line_up_270[3,4:358],size=10,point_antialias=TRUE,alpha=1, col="ivory2")}
+if(time == "Noon"){rgl.points(line_up_0[1,4:358],line_up_0[2,4:358],line_up_0[3,4:358],size=10,point_antialias=TRUE,alpha=1,col="peru")
+}
+if(time == "Sunset"){rgl.points(line_up_90[1,2:356],line_up_90[2,2:356],line_up_90[3,2:356],size=10,point_antialias=TRUE,alpha=1,col="ivory2")}
+if(time == "Midnight"){rgl.points(line_up_180[1,4:358],line_up_180[2,4:358],line_up_180[3,4:358],size=10,point_antialias=TRUE,alpha=1, col="slategrey")}
+
+
+if(time == "All"){
+rgl.points(line_up_270[1,4:358],line_up_270[2,4:358],line_up_270[3,4:358],size=10,point_antialias=TRUE,alpha=1, col="ivory2")
+rgl.points(line_up_0[1,4:358],line_up_0[2,4:358],line_up_0[3,4:358],size=10,point_antialias=TRUE,alpha=1,col="peru")
+rgl.points(line_up_90[1,2:356],line_up_90[2,2:356],line_up_90[3,2:356],size=10,point_antialias=TRUE,alpha=1,col="ivory2")
+rgl.points(line_up_180[1,4:358],line_up_180[2,4:358],line_up_180[3,4:358],size=10,point_antialias=TRUE,alpha=1, col="slategrey")
+}
+ 
+}
+
+### Stop here  ######
+
+
+
+
+
+## Now run this one group at a time.  
+
+########  ESA PRESENTATION  ############################################
+########################################################################
+########################################################################
+########################################################################
+########################################################################
+########################################################################
+
+#rgl.snapshot("124q32.ps", fmt = "ps")
+invisible(open3d())
+rgl.bg(col="white")
+
+
+###### SLIDE 1 ##################################
+#### Introduce globe and rgl  ###################
+
+#rgl.clear()
+rgl.spheres(0,0,0,1,alpha=1,lit=FALSE, texture="~/Atheria as folder/Time sine project/R files/ESA versions/earth.png")
+rgl.spheres(axis_line[1,],axis_line[2,],axis_line[3,],.05,col="firebrick")
+rgl.spheres(equator_line[1,],equator_line[2,],equator_line[3,],.01,col="firebrick",alpha=1)
+rgl.spheres(artic_circle[1,],artic_circle[2,],artic_circle[3,],.01,col="firebrick",alpha=1)
+rgl.spheres(antartic_circle[1,],antartic_circle[2,],antartic_circle[3,],.01,col="firebrick",alpha=1)
+
+## add sun disc  ### FYI, this will sometime crash x11.  If it does, just restart R and skip this line
+rgl.surface(sun_rotation_array[1,,],sun_rotation_array[2,,],sun_rotation_array[3,,],alpha=.5,col=c(rep("red",3),rev(heat.colors(85)),rep("black",3),heat.colors(85),rep("red",3),rep("grey40",90),"red",rep("grey40",79),rep("grey40",10),rep("grey40",2)), lit=FALSE)
+
+# add Noon path
+rotate_path_function(26,"Noon", clear=FALSE)
+#rgl.spheres(0,0,0,1,alpha=1,lit=FALSE, texture="earth.png")
+
+
+```
+
+
+
+
+```{r, echo=FALSE}
+rglwidget()
+```
+
+
+
+
+

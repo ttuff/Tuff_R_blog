@@ -197,8 +197,8 @@ antartic_circle &lt;- antarctic_x_L_rotation_matrix %*% polar_circle</code></pre
 
 Throwing_matches()</code></pre>
 <pre><code>##          [,1]     [,2]
-## [1,] 31.07075 38.41388
-## [2,] 37.96456 31.16988</code></pre>
+## [1,] 17.95832 76.54798
+## [2,] 11.71079 68.73976</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
@@ -247,7 +247,7 @@ presence_of_line_crossing &lt;- as.numeric(!is.na(line_crossings[,1]))</code></p
 <pre class="r"><code>match_crosses_line &lt;- length(which(!is.na(line_crossings[,1])==TRUE))
 pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * match_crosses_line)
 pi_estimate</code></pre>
-<pre><code>## [1] 3.448276</code></pre>
+<pre><code>## [1] 3.194888</code></pre>
 
     </div>
   </article>
