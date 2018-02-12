@@ -24,17 +24,17 @@ single_match
 ```
 
 ```{r}
-library(rgl)
-library(shiny)
-
-
-plotids <- with(iris, 
-               
-      readSTL( "~/Downloads/STL/Bolt Big.STL", plot=TRUE, col="grey")
-
-                )
-rglwidget(elementId = "plot3drgl")
-
+# library(rgl)
+# library(shiny)
+# 
+# 
+# plotids <- with(iris, 
+#                
+#       readSTL( "~/Downloads/STL/Bolt Big.STL", plot=TRUE, col="grey")
+# 
+#                 )
+# rglwidget(elementId = "plot3drgl")
+# 
 
 ```
 
