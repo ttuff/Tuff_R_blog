@@ -33,43 +33,43 @@ plotids <- with(iris,
       readSTL( "~/Downloads/STL/Bolt Big.STL", plot=TRUE, col="grey")
 
                 )
-rglwidget(elementId = "plot3drgl222")
+rglwidget(elementId = "plot3drgl")
 
 
 ```
 
 
 ```{r, echo=FALSE, eval=FALSE}
-library(rgl)
-library(shiny)
-
- hand <- readLines("~/Downloads/BB8 New/bb8.obj")
-poly <- grepl("^f ", hand)
-hand[poly] <- gsub("/[^ ]+", "", hand[poly])
-handmesh <- suppressWarnings(readOBJ(textConnection(hand)))
-plotids <- with(iris, 
-      shade3d(handmesh, col = "cornflowerblue")
-                )
-plotids <- with(iris, 
-               
-      par3d(userMatrix = rotate3d(par3d("userMatrix"), 1.5, 1,0,0))
-
-                )
-rglwidget(elementId = "plot3drgl1")
+# library(rgl)
+# library(shiny)
+# 
+#  hand <- readLines("~/Downloads/BB8 New/bb8.obj")
+# poly <- grepl("^f ", hand)
+# hand[poly] <- gsub("/[^ ]+", "", hand[poly])
+# handmesh <- suppressWarnings(readOBJ(textConnection(hand)))
+# plotids <- with(iris, 
+#       shade3d(handmesh, col = "cornflowerblue")
+#                 )
+# plotids <- with(iris, 
+#                
+#       par3d(userMatrix = rotate3d(par3d("userMatrix"), 1.5, 1,0,0))
+# 
+#                 )
+# rglwidget(elementId = "plot3drgl1")
 ```
 
 
 ```{r}
-plotids <- with(iris, 
-               plot3d(x=c(-5,5), y=c(0,0), z=c(0,0), box=FALSE, axes=FALSE, type="n")
-                )
-plotids <- with(iris, 
-               lines3d(x=c(-5,5), y=c(0,0), z=c(0,0), col="black", lwd=5)
-                )
-plotids <- with(iris, 
-               spheres3d(x=c(-5,5), y=c(0,0), z=c(0,0), col="green", radius=1)
-                )
-rglwidget(elementId = "plot3drgl3")
+# plotids <- with(iris, 
+#                plot3d(x=c(-5,5), y=c(0,0), z=c(0,0), box=FALSE, axes=FALSE, type="n")
+#                 )
+# plotids <- with(iris, 
+#                lines3d(x=c(-5,5), y=c(0,0), z=c(0,0), col="black", lwd=5)
+#                 )
+# plotids <- with(iris, 
+#                spheres3d(x=c(-5,5), y=c(0,0), z=c(0,0), col="green", radius=1)
+#                 )
+# rglwidget(elementId = "plot3drgl3")
 
 
 
