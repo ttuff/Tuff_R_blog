@@ -22,6 +22,15 @@ match_stick_length &amp;lt;- 10 number_of_matches_in_a_box &amp;lt;- 1000 distan
     </item>
     
     <item>
+      <title>3d stuff</title>
+      <link>/2018/02/12/3d-stuff/</link>
+      <pubDate>Mon, 12 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/02/12/3d-stuff/</guid>
+      <description>library(rgl) open3d() ## glX ## 1 lat &amp;lt;- matrix(seq(90,-90, len=50)*pi/180, 50, 50, byrow=TRUE) long &amp;lt;- matrix(seq(-180, 180, len=50)*pi/180, 50, 50) r &amp;lt;- 6378.1 # radius of Earth in km x &amp;lt;- r*cos(lat)*cos(long); y &amp;lt;- r*cos(lat)*sin(long) z &amp;lt;- r*sin(lat) cols &amp;lt;- c(rep(&amp;quot;chocolate4&amp;quot;,4), rep(&amp;quot;burlywood1&amp;quot;, 4), &amp;quot;darkgoldenrod1&amp;quot;) rs &amp;lt;- c(6350, 5639, 4928.5, 4207, 3486, (3486+2351)/2, 2351, (2351+1216)/2, 1216) obj &amp;lt;- c(persp3d(x, y, z, col=&amp;quot;white&amp;quot;, texture=system.file(&amp;quot;textures/world.png&amp;quot;,package=&amp;quot;rgl&amp;quot;), specular=&amp;quot;black&amp;quot;, axes=FALSE, box=FALSE, xlab=&amp;quot;&amp;quot;, ylab=&amp;quot;&amp;quot;, zlab=&amp;quot;&amp;quot;, normal_x=x, normal_y=y, normal_z=z), spheres3d(matrix(0, 9, 3), col = cols, radius = rs)) rglwidget(elementId = &amp;quot;earth&amp;quot;)  {&#34;</description>
+    </item>
+    
+    <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
