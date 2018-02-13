@@ -1,15 +1,75 @@
----
-title: Buffon's needles
-author: Ty Tuff
-date: '2018-12-07'
-slug: pie-from-matches
-categories: []
-tags: []
----
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.36" />
+
+
+<title>Buffon’s needles in R - Thinking for a living</title>
+<meta property="og:title" content="Buffon’s needles in R - Thinking for a living">
 
 
 
-<p>Make a match</p>
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/ttuff/Tuff_R_blog">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/ty_tuff">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Buffon’s needles in R</h1>
+
+    
+    <span class="article-date">2018/02/12</span>
+    
+
+    <div class="article-content">
+      <p>Make a match</p>
 <pre class="r"><code>match_stick_length &lt;- 10
 number_of_matches_in_a_box &lt;- 1000
 distance_between_surface_lines &lt;- 20
@@ -23,7 +83,7 @@ single_match</code></pre>
 <pre><code>##          x    y
 ## point_1 -5 0.01
 ## point_2  5 0.01</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Throw the match</p>
 <p>First rotate around the origin</p>
 <pre class="r"><code>#install.packages(&quot;DescTools&quot;)
@@ -49,7 +109,7 @@ xy &lt;- as.matrix(point_coords)
 }
 
 after_rotation &lt;- rotate_needle(15, single_match)</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>after_rotation</code></pre>
 <pre><code>##                 x         y
 ## point_1 -4.832217 -1.284436
@@ -60,7 +120,7 @@ after_rotation &lt;- rotate_needle(15, single_match)</code></pre>
 <pre><code>## [1] 5.00003</code></pre>
 <p>Then translate that line onto the table</p>
 <pre class="r"><code>new_coord &lt;- after_rotation + matrix(c(50,50,50,50),2,2)</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Repeat for an entire box of matches</p>
 <pre class="r"><code>Throwing_matches &lt;- function(){
   single_match &lt;-cbind(c(-5,5),c(0,0))
@@ -85,26 +145,26 @@ after_rotation &lt;- rotate_needle(15, single_match)</code></pre>
 
 Throwing_matches()</code></pre>
 <pre><code>##          [,1]     [,2]
-## [1,] 44.05825 64.25170
-## [2,] 42.96394 74.19165</code></pre>
+## [1,] 32.82579 65.79695
+## [2,] 22.91944 64.43154</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)}
 
   surface_line(20)</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>#install.packages(&quot;retistruct&quot;)
 library(retistruct)
 one_match &lt;- Throwing_matches()
 one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)</code></pre>
-<pre><code>## [1] 56.96918 30.00000</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre><code>## [1] NA NA</code></pre>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Make a list of surface lines and a list of matches</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_matches_in_a_box))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
@@ -117,7 +177,7 @@ for(i in 1:6){
   line_placement &lt;- seq(0,100, by=20)
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>line_crossings &lt;- matrix(NA,  dim(list_of_matches)[3] * dim(list_of_surface_lines)[3], 2)
 counter &lt;- 1
 i &lt;- 5
@@ -131,8 +191,54 @@ for(i in 1:dim(list_of_matches)[3]){
 }
 
 presence_of_line_crossing &lt;- as.numeric(!is.na(line_crossings[,1]))</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/post/2018-02-12-buffon-s-needles-in-r_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>match_crosses_line &lt;- length(which(!is.na(line_crossings[,1])==TRUE))
 pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * match_crosses_line)
 pi_estimate</code></pre>
-<pre><code>## [1] 3.225806</code></pre>
+<pre><code>## [1] 2.97619</code></pre>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          
+          <li>
+            
+          	<a href="https://scholar.google.com/citations?user=jxAk620AAAAJ&hl=en&oi=ao" class="footer-links-kudos"><img src="/images/Google.png" width="100" height="45"></a>
+          	<a href="https://www.researchgate.net/profile/Ty_Tuff" class="footer-links-kudos"><img src="/images/ResearchGate.png" width="50" height="50"></a>
+          	<a href="https://twitter.com/ty_tuff" class="footer-links-kudos"><img src="/images/Twitter.png" width="50" height="50"></a>
+			<a href="https://github.com/ttuff" class="footer-links-kudos"><img src="/images/GitHub.png" width="50" height="50"></a>	          
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

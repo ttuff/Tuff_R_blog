@@ -59,7 +59,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">2 min read</span>
     
 
     <h1 class="article-title">Buffon&#39;s needles</h1>
@@ -83,17 +83,7 @@ single_match</code></pre>
 <pre><code>##          x    y
 ## point_1 -5 0.01
 ## point_2  5 0.01</code></pre>
-<pre class="r"><code># plotids &lt;- with(iris, 
-#                plot3d(x=c(-5,5), y=c(0,0), z=c(0,0), box=FALSE, axes=FALSE, type=&quot;n&quot;)
-#                 )
-# plotids &lt;- with(iris, 
-#                lines3d(x=c(-5,5), y=c(0,0), z=c(0,0), col=&quot;black&quot;, lwd=5)
-#                 )
-# plotids &lt;- with(iris, 
-#                spheres3d(x=c(-5,5), y=c(0,0), z=c(0,0), col=&quot;green&quot;, radius=1)
-#                 )
-# rglwidget(elementId = &quot;plot3drgl3&quot;)</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Throw the match</p>
 <p>First rotate around the origin</p>
 <pre class="r"><code>#install.packages(&quot;DescTools&quot;)
@@ -119,38 +109,7 @@ xy &lt;- as.matrix(point_coords)
 }
 
 after_rotation &lt;- rotate_needle(15, single_match)</code></pre>
-<pre class="r"><code>polar_circle &lt;- matrix(NA,4,361)
-
-for (k in seq(0,361,length.out=360)){  ## long, angle measured counter clockwise looking down the north pole        #from the x-axis. 
-    
-    #i &lt;- 89
-    #k &lt;- 55
-    
-    
-    up &lt;- 23.44 * (pi/180)
-    around &lt;- k * (pi/180)
-    
-     p &lt;- 1
-     x &lt;- p * sin(up) * cos (around) 
-     y &lt;- p * sin(up) * sin (around)
-     z &lt;- p * cos(up)  
-    
-    xyz &lt;- xyz.coords(x,y,z)
-    polar_circle[1,k] &lt;- as.numeric(xyz[1])
-    polar_circle[2,k] &lt;- as.numeric(xyz[2])
-    polar_circle[3,k] &lt;- as.numeric(xyz[3])
-    polar_circle[4,k] &lt;- 1
-    
-    }
-
-#rgl.clear()
-rotate_arctic &lt;- 90*(pi/180)
-rotate_antarctic &lt;- 270*(pi/180)
-arctic_x_L_rotation_matrix &lt;- matrix(c(1,0,0,0,0,cos(rotate_arctic),-sin(rotate_arctic),0,0,sin(rotate_arctic),cos(rotate_arctic),0,0,0,0,1),4,4)
-antarctic_x_L_rotation_matrix &lt;- matrix(c(1,0,0,0,0,cos(rotate_antarctic),-sin(rotate_antarctic),0,0,sin(rotate_antarctic),cos(rotate_antarctic),0,0,0,0,1),4,4)
-artic_circle &lt;- arctic_x_L_rotation_matrix %*% polar_circle
-antartic_circle &lt;- antarctic_x_L_rotation_matrix %*% polar_circle</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <pre class="r"><code>after_rotation</code></pre>
 <pre><code>##                 x         y
 ## point_1 -4.832217 -1.284436
@@ -161,7 +120,7 @@ antartic_circle &lt;- antarctic_x_L_rotation_matrix %*% polar_circle</code></pre
 <pre><code>## [1] 5.00003</code></pre>
 <p>Then translate that line onto the table</p>
 <pre class="r"><code>new_coord &lt;- after_rotation + matrix(c(50,50,50,50),2,2)</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Repeat for an entire box of matches</p>
 <pre class="r"><code>Throwing_matches &lt;- function(){
   single_match &lt;-cbind(c(-5,5),c(0,0))
@@ -186,26 +145,26 @@ antartic_circle &lt;- antarctic_x_L_rotation_matrix %*% polar_circle</code></pre
 
 Throwing_matches()</code></pre>
 <pre><code>##          [,1]     [,2]
-## [1,] 32.61107 44.80567
-## [2,] 40.79414 50.55349</code></pre>
+## [1,] 44.05825 64.25170
+## [2,] 42.96394 74.19165</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)}
 
   surface_line(20)</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>#install.packages(&quot;retistruct&quot;)
 library(retistruct)
 one_match &lt;- Throwing_matches()
 one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)</code></pre>
-<pre><code>## [1] NA NA</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre><code>## [1] 56.96918 30.00000</code></pre>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Make a list of surface lines and a list of matches</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_matches_in_a_box))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
@@ -218,7 +177,7 @@ for(i in 1:6){
   line_placement &lt;- seq(0,100, by=20)
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>line_crossings &lt;- matrix(NA,  dim(list_of_matches)[3] * dim(list_of_surface_lines)[3], 2)
 counter &lt;- 1
 i &lt;- 5
@@ -232,11 +191,11 @@ for(i in 1:dim(list_of_matches)[3]){
 }
 
 presence_of_line_crossing &lt;- as.numeric(!is.na(line_crossings[,1]))</code></pre>
-<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>match_crosses_line &lt;- length(which(!is.na(line_crossings[,1])==TRUE))
 pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * match_crosses_line)
 pi_estimate</code></pre>
-<pre><code>## [1] 2.949853</code></pre>
+<pre><code>## [1] 3.225806</code></pre>
 
     </div>
   </article>

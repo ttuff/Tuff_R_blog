@@ -1,11 +1,12 @@
 ---
-title: Buffon's needles
+title: Buffon’s needles in R
 author: Ty Tuff
-date: '2018-12-07'
-slug: pie-from-matches
+date: '2018-02-12'
+slug: buffon-s-needles-in-r
 categories: []
 tags: []
 ---
+
 
 
 Make a match
@@ -295,13 +296,4 @@ match_crosses_line <- length(which(!is.na(line_crossings[,1])==TRUE))
 pi_estimate <- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * match_crosses_line)
 pi_estimate
 ```
-
-
-
-
-
-
-
-
-
 
