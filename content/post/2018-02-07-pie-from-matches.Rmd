@@ -23,22 +23,6 @@ colnames(single_match)<- c("x","y")
 single_match
 ```
 
-```{r}
-# library(rgl)
-# library(shiny)
-# 
-# 
-# plotids <- with(iris, 
-#                
-#       readSTL( "~/Downloads/STL/Bolt Big.STL", plot=TRUE, col="grey")
-# 
-#                 )
-# rglwidget(elementId = "plot3drgl")
-# 
-
-```
-
-
 ```{r, echo=FALSE, eval=FALSE}
 # library(rgl)
 # library(shiny)
@@ -59,7 +43,7 @@ single_match
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 # plotids <- with(iris, 
 #                plot3d(x=c(-5,5), y=c(0,0), z=c(0,0), box=FALSE, axes=FALSE, type="n")
 #                 )
