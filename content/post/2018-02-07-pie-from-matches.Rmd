@@ -6,9 +6,12 @@ slug: pie-from-matches
 categories: []
 tags: []
 ---
+```{r}
+library(retistruct)
+```
 
 
-Make a match
+Make a needle
 ```{r}
 match_stick_length <- 20
 number_of_matches_in_a_box <- 10000
@@ -20,6 +23,8 @@ single_match <-cbind(point_1, point_2)
 rownames(single_match)<- c("point_1","point_2")
 colnames(single_match)<- c("x","y")
 single_match
+
+
 ```
 
 ```{r, echo=FALSE}
@@ -42,23 +47,16 @@ Throw the match
 First rotate around the origin
 
 ```{r, echo=1:25}
-point_coords = single_match
 
-rotate_needle <- function(angle=45, point_coords){
-  angle_input <- angle*pi/180
-xy <- as.matrix(point_coords)
-    cos.angle <- cos(angle_input)
-    sin.angle <- sin(angle_input)
-    after_rotation <- point_coords
-    after_rotation[1:2,1:2] <- rep(NA,4)
-    after_rotation[1,] <- t(as.matrix(xy[1,])) %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+  angle <- runif(1, min=1, max=360)*pi/180
+  xy <- as.matrix(single_match)
+  
+  # Rotation
+  cos.angle <- cos(angle)
+  sin.angle <- sin(angle)
+  after_rotation <- xy %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
         cos.angle), 2, 2))
-    after_rotation[2,] <- t(as.matrix(xy[2,])) %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
-        cos.angle), 2, 2))
-    return(after_rotation)
-}
-
-after_rotation <- rotate_needle(15, single_match)
+  
 after_rotation
 ```
 
@@ -76,6 +74,7 @@ lines(single_match, col=adjustcolor("red", 0.8), lwd=8)
 lines(after_rotation, col=adjustcolor("blue", 0.8), lwd=8)
 points(single_match, col="limegreen", pch=19, cex=1)
 points(after_rotation, col="limegreen", pch=19, cex=1)
+points(0,0,cex=75)
 ```
 
 
@@ -83,6 +82,18 @@ points(after_rotation, col="limegreen", pch=19, cex=1)
 
 
 Then translate that line onto the table
+
+```{r}
+  # Translation
+  translation.x <- runif(1, min=10, max=90)
+  translation.y <- runif(1, min=10, max=90)
+  translation <- matrix(c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord <- after_rotation + translation
+  colnames(new_coord) <- c("x","y")
+  rownames(new_coord) <- c("Point_1","Point_2")
+  
+```
+
 
 ```{r}
 new_coord <- after_rotation + matrix(c(50,50,50,50),2,2)
@@ -111,8 +122,8 @@ Throwing_matches <- function(){
   # Rotation
   cos.angle <- cos(angle)
   sin.angle <- sin(angle)
-  after_rotation <- xy %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
-        cos.angle), 2, 2))
+  after_rotation <- xy %*% matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2, byrow=TRUE )
   
   # Translation
   translation.x <- runif(1, min=10, max=90)
@@ -162,7 +173,7 @@ lines(surface_line(30), col=adjustcolor("red", 0.8), lwd=3)
 
 
 ```{r, cache=TRUE}
-library(retistruct)
+
 one_match <- Throwing_matches()
 one_surface_line <- surface_line(30)
 line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)
@@ -232,6 +243,7 @@ for(j in 1:dim(list_of_surface_lines)[3]){
   crosses <- rbind(crosses, c(
     line.line.intersection(list_of_matches[1,,i], list_of_matches[2,,i], list_of_surface_lines[1,,j],     
     list_of_surface_lines[2,,j], interior.only = TRUE), 
+    
     list_of_matches[1,,i], list_of_matches[2,,i], list_of_surface_lines[1,,j], list_of_surface_lines[2,,j])
     )
   }
