@@ -172,7 +172,7 @@ lines(surface_line(30), col=adjustcolor("red", 0.8), lwd=3)
 
 
 
-```{r, cache=TRUE}
+```{r}
 
 one_match <- Throwing_matches()
 one_surface_line <- surface_line(30)
