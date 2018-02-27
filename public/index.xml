@@ -6,19 +6,10 @@
     <description>Recent content on Thinking for a living</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 12 Feb 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Needles</title>
-      <link>/2018/02/27/needles/</link>
-      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/02/27/needles/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>3d stuff</title>
@@ -49,18 +40,6 @@ First rotate around the origin
       <guid>/about/</guid>
       <description>My name is Dr. Ty Tuff and I have an amazing job. I think for a living.
 Come see the wide variety of ways I apply quantitiative thought to ecological and evolotionary problems.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/1/01/01/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/1/01/01/</guid>
-      <description>Make a match
-match_stick_length &amp;lt;- 10 number_of_matches_in_a_box &amp;lt;- 1000 distance_between_surface_lines &amp;lt;- 20 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0.01,0.01) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match ## x y ## point_1 -5 0.01 ## point_2 5 0.01 Throw the match
-First rotate around the origin
-#install.packages(&amp;quot;DescTools&amp;quot;) library(DescTools) single_match_coords &amp;lt;- xy.coords(single_match) after_rotation &amp;lt;-Rotate(single_match_coords$x, single_match_coords$y, 90*pi/180) point_coords = single_match rotate_needle &amp;lt;- function(angle=45, point_coords){ angle_input &amp;lt;- angle*pi/180 xy &amp;lt;- as.matrix(point_coords) cos.angle &amp;lt;- cos(angle_input) sin.</description>
     </item>
     
   </channel>
