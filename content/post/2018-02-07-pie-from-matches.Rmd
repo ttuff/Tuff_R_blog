@@ -1,7 +1,7 @@
 ---
 title: Buffon's needles
 author: Ty Tuff
-date: '2018-12-07'
+date: '2018-02-07'
 slug: pie-from-matches
 categories: []
 tags: []
