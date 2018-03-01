@@ -98,8 +98,8 @@ single_match</code></pre>
   
 after_rotation</code></pre>
 <pre><code>##              [,1]      [,2]
-## point_1  1.946859 -9.808656
-## point_2 -1.946859  9.808656</code></pre>
+## point_1 -3.875143  9.218637
+## point_2  3.875143 -9.218637</code></pre>
 <p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Then translate that line onto the table</p>
 <pre class="r"><code>  # Translation
@@ -136,8 +136,8 @@ after_rotation</code></pre>
 
 Throwing_matches()</code></pre>
 <pre><code>##                x        y
-## Point_1 82.28931 53.25692
-## Point_2 92.25328 54.10497</code></pre>
+## Point_1 91.01518 73.69449
+## Point_2 84.61912 81.38152</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
@@ -183,23 +183,23 @@ colnames(crosses) &lt;- c(&quot;x.cross&quot;, &quot;y.cross&quot;, &quot;x.p1&q
                     &quot;y.p2&quot;, &quot;x.surface.p1&quot;, &quot;y.surface.p1&quot;, &quot;x.surface.p2&quot;, 
                     &quot;y.surface.p2&quot;)
 head(crosses)</code></pre>
-<pre><code>##       x.cross y.cross     x.p1     y.p1      x.p2     y.p2 x.surface.p1
-## [1,] 51.11666      80 48.16044 83.79728 54.303444 75.90656            0
-## [2,] 32.83941      80 36.73876 83.88106 29.651087 76.82663            0
-## [3,] 63.89779      40 68.99883 47.62770 63.439829 39.31521            0
-## [4,] 15.54607      80 15.62884 79.87900  9.982916 88.13270            0
-## [5,] 39.72179      80 33.57826 87.51674 39.906606 79.77387            0
-## [6,] 27.96926      80 26.78716 79.12961 34.839747 85.05885            0
+<pre><code>##       x.cross y.cross     x.p1     y.p1     x.p2     y.p2 x.surface.p1
+## [1,] 31.23533      80 32.43217 81.55826 26.34090 73.62753            0
+## [2,] 60.88056      20 61.15421 29.10482 60.85379 19.10933            0
+## [3,] 51.69747      80 49.57183 72.25281 52.21779 81.89641            0
+## [4,] 47.43780      20 52.88143 16.18647 44.69123 21.92411            0
+## [5,] 79.47494      60 72.08692 66.48317 79.60327 59.88738            0
+## [6,] 81.91651      40 82.10161 38.14177 81.11039 48.09252            0
 ##      y.surface.p1 x.surface.p2 y.surface.p2
 ## [1,]           80          100           80
-## [2,]           80          100           80
-## [3,]           40          100           40
-## [4,]           80          100           80
-## [5,]           80          100           80
-## [6,]           80          100           80</code></pre>
+## [2,]           20          100           20
+## [3,]           80          100           80
+## [4,]           20          100           20
+## [5,]           60          100           60
+## [6,]           40          100           40</code></pre>
 <p><img src="/post/2018-02-07-pie-from-matches_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * length(crosses[,1]))</code></pre>
-<pre><code>## [1] 3.186743</code></pre>
+<pre><code>## [1] 3.272251</code></pre>
 
     </div>
   </article>
