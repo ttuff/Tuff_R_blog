@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-
+This is an example pasted from http://www.stats.uwo.ca/faculty/murdoch/Western2015/rgl2015.html#14 
 
 ```{r}
 library(rgl)
