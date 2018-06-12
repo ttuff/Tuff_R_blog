@@ -1,7 +1,7 @@
 ---
 title: Buffon's needles
 author: Ty Tuff
-date: '2018-02-07'
+date: '2018-06-12'
 slug: pie-from-matches
 categories: []
 tags: []
@@ -49,7 +49,7 @@ First rotate around the origin
 
 ```{r, echo=1:25}
 
-  angle <- runif(1, min=1, max=360)*pi/180
+  angle <- runif(1, min=1, max=90)*pi/180
   xy <- as.matrix(single_match)
   
   # Rotation
@@ -66,7 +66,7 @@ after_rotation
 
 
 ```{r, echo=FALSE}
-plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-10,10), ylim=c(-10,10))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", xlim=c(-20,20), ylim=c(-20,20))
 #axis(1, pos=0, at=c(seq(-10,100, by = 10)))
 #axis(2, pos=0, at=c(seq(-10,100, by = 10)))
 abline(v=0)
@@ -75,7 +75,9 @@ lines(single_match, col=adjustcolor("red", 0.8), lwd=8)
 lines(after_rotation, col=adjustcolor("blue", 0.8), lwd=8)
 points(single_match, col="limegreen", pch=19, cex=1)
 points(after_rotation, col="limegreen", pch=19, cex=1)
-points(0,0,cex=75)
+
+axis(1)
+axis(2)
 ```
 
 
