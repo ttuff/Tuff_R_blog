@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Thinking for a living</title>
-    <link>/</link>
-    <description>Recent content on Thinking for a living</description>
+    <title>Pi on Thinking for a living</title>
+    <link>/tags/pi/</link>
+    <description>Recent content in Pi on Thinking for a living</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 12 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/pi/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -33,25 +33,6 @@ First rotate around the origin
 match_stick_length &amp;lt;- 20 number_of_matches_in_a_box &amp;lt;- 10000 distance_between_surface_lines &amp;lt;- 40 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0,0) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match ## x y ## point_1 -10 0 ## point_2 10 0 ## Warning: package &amp;#39;rgl&amp;#39; was built under R version 3.4.4 ## Warning: package &amp;#39;shiny&amp;#39; was built under R version 3.4.4 Throw the match
 First rotate around the origin
  angle &amp;lt;- runif(1, min=1, max=360)*pi/180 xy &amp;lt;- as.</description>
-    </item>
-    
-    <item>
-      <title>3d stuff</title>
-      <link>/2018/02/12/3d-stuff/</link>
-      <pubDate>Mon, 12 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/02/12/3d-stuff/</guid>
-      <description>library(rgl) invisible(open3d()) lat &amp;lt;- matrix(seq(90,-90, len=50)*pi/180, 50, 50, byrow=TRUE) long &amp;lt;- matrix(seq(-180, 180, len=50)*pi/180, 50, 50) r &amp;lt;- 6378.1 # radius of Earth in km x &amp;lt;- r*cos(lat)*cos(long); y &amp;lt;- r*cos(lat)*sin(long) z &amp;lt;- r*sin(lat) cols &amp;lt;- c(rep(&amp;quot;chocolate4&amp;quot;,4), rep(&amp;quot;burlywood1&amp;quot;, 4), &amp;quot;darkgoldenrod1&amp;quot;) rs &amp;lt;- c(6350, 5639, 4928.5, 4207, 3486, (3486+2351)/2, 2351, (2351+1216)/2, 1216) obj &amp;lt;- c(persp3d(x, y, z, col=&amp;quot;white&amp;quot;, texture=system.file(&amp;quot;textures/world.png&amp;quot;,package=&amp;quot;rgl&amp;quot;), specular=&amp;quot;black&amp;quot;, axes=FALSE, box=FALSE, xlab=&amp;quot;&amp;quot;, ylab=&amp;quot;&amp;quot;, zlab=&amp;quot;&amp;quot;, normal_x=x, normal_y=y, normal_z=z), spheres3d(matrix(0, 9, 3), col = cols, radius = rs)) rglwidget(elementId = &amp;quot;earth&amp;quot;)  {&#34;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
-      
-      <guid>/about/</guid>
-      <description>My name is Dr. Ty Tuff and I have an amazing job. I think for a living.
-Come see the wide variety of ways I apply quantitiative thought to ecological and evolotionary problems.</description>
     </item>
     
   </channel>

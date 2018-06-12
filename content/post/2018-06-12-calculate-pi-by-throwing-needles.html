@@ -1,13 +1,13 @@
 ---
-title: Buffon's needles
+title: Calculate pi by throwing needles
 author: Ty Tuff
 date: '2018-06-12'
+slug: calculate-pi-by-throwing-needles
 categories:
   - pi day games
 tags:
   - Pi
   - Pi day
-slug: pie-from-matches
 ---
 
 
@@ -29,7 +29,7 @@ single_match</code></pre>
 ## point_2  10 0</code></pre>
 <pre><code>## Warning: package &#39;rgl&#39; was built under R version 3.4.4</code></pre>
 <pre><code>## Warning: package &#39;shiny&#39; was built under R version 3.4.4</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Throw the match</p>
 <p>First rotate around the origin</p>
 <pre class="r"><code>  angle &lt;- runif(1, min=1, max=360)*pi/180
@@ -42,10 +42,10 @@ single_match</code></pre>
         cos.angle), 2, 2))
   
 after_rotation</code></pre>
-<pre><code>##              [,1]      [,2]
-## point_1  2.728193  9.620653
-## point_2 -2.728193 -9.620653</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>##              [,1]       [,2]
+## point_1 -9.985515  0.5380346
+## point_2  9.985515 -0.5380346</code></pre>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Then translate that line onto the table</p>
 <pre class="r"><code>  # Translation
   translation.x &lt;- runif(1, min=10, max=90)
@@ -55,7 +55,7 @@ after_rotation</code></pre>
   colnames(new_coord) &lt;- c(&quot;x&quot;,&quot;y&quot;)
   rownames(new_coord) &lt;- c(&quot;Point_1&quot;,&quot;Point_2&quot;)</code></pre>
 <pre class="r"><code>new_coord &lt;- after_rotation + matrix(c(50,50,50,50),2,2)</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Repeat for an entire box of matches</p>
 <pre class="r"><code>Throwing_matches &lt;- function(){
   single_match &lt;-cbind(c(-5,5),c(0,0))
@@ -81,22 +81,22 @@ after_rotation</code></pre>
 
 Throwing_matches()</code></pre>
 <pre><code>##                x        y
-## Point_1 37.46194 38.59406
-## Point_2 27.57900 40.11964</code></pre>
+## Point_1 19.60470 17.07055
+## Point_2 12.98547 24.56626</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)}</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>one_match &lt;- Throwing_matches()
 one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_match[1,], one_match[2,], one_surface_line[1,], one_surface_line[2,], interior.only = TRUE)</code></pre>
 <pre><code>## [1] NA NA</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Make a list of surface lines and a list of matches</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_matches_in_a_box))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
@@ -109,7 +109,7 @@ line_placement &lt;- seq(0,100, by=20)
 for(i in 1:6){
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -129,19 +129,19 @@ colnames(crosses) &lt;- c(&quot;x.cross&quot;, &quot;y.cross&quot;, &quot;x.p1&q
                     &quot;y.surface.p2&quot;)
 head(crosses)</code></pre>
 <pre><code>##       x.cross y.cross     x.p1     y.p1     x.p2     y.p2 x.surface.p1
-## [1,] 22.79245      20 22.14889 21.82026 25.48223 12.39217            0
-## [2,] 12.93313      80 13.49917 73.04539 12.68794 83.01243            0
-## [3,] 36.23465      40 36.94358 37.18552 34.50103 46.88263            0
-## [4,] 65.52960      60 69.64874 62.62207 61.21287 57.25216            0
-## [5,] 71.82400      40 75.70482 37.92928 66.88219 42.63684            0
-## [6,] 72.01180      60 69.57860 55.91901 74.69971 64.50820            0
+## [1,] 66.08364      80 65.46719 80.88682 71.17493 72.67575            0
+## [2,] 86.90215      80 87.82216 81.28915 82.01318 73.14938            0
+## [3,] 13.50807      80 23.09351 82.11853 13.32915 79.96046            0
+## [4,] 78.24769      20 69.99890 18.47288 79.83181 20.29327            0
+## [5,] 59.51864      80 58.77765 71.47905 59.64398 81.44145            0
+## [6,] 38.37146      60 37.18274 65.77967 39.19731 55.98469            0
 ##      y.surface.p1 x.surface.p2 y.surface.p2
-## [1,]           20          100           20
+## [1,]           80          100           80
 ## [2,]           80          100           80
-## [3,]           40          100           40
-## [4,]           60          100           60
-## [5,]           40          100           40
+## [3,]           80          100           80
+## [4,]           20          100           20
+## [5,]           80          100           80
 ## [6,]           60          100           60</code></pre>
-<p><img src="/post/2018-06-12-pie-from-matches_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * length(crosses[,1]))</code></pre>
-<pre><code>## [1] 3.156566</code></pre>
+<pre><code>## [1] 3.122073</code></pre>

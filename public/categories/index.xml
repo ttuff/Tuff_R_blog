@@ -10,5 +10,14 @@
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Pi Day Games</title>
+      <link>/categories/pi-day-games/</link>
+      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/pi-day-games/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
