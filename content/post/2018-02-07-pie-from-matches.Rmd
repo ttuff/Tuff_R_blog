@@ -2,9 +2,12 @@
 title: Buffon's needles
 author: Ty Tuff
 date: '2018-06-12'
+categories:
+  - pi day games
+tags:
+  - Pi
+  - Pi day
 slug: pie-from-matches
-categories: []
-tags: []
 ---
 
 ```{r}
