@@ -52,7 +52,7 @@ First rotate around the origin
 
 ```{r, echo=1:25}
 
-  angle <- runif(1, min=1, max=90)*pi/180
+  angle <- runif(1, min=1, max=360)*pi/180
   xy <- as.matrix(single_match)
   
   # Rotation
@@ -79,8 +79,7 @@ lines(after_rotation, col=adjustcolor("blue", 0.8), lwd=8)
 points(single_match, col="limegreen", pch=19, cex=1)
 points(after_rotation, col="limegreen", pch=19, cex=1)
 
-axis(1)
-axis(2)
+
 ```
 
 
