@@ -10,6 +10,12 @@ tags:
   - Pi day
 ---
 
+Suppose that you drop a short needle on ruled paper, what is then the probability that the needle comes to lie in a position where it crosses one of the lines?
+  - Georges Buffon, 1777
+  
+When the needle is the right length, the answer is pi!
+
+Here is a quick example in R of approximating the value of Pi by tossing digital needles onto lines paper. 
 
 
 ```{r}

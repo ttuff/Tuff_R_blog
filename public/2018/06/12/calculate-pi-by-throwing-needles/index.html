@@ -69,7 +69,10 @@
     
 
     <div class="article-content">
-      <pre class="r"><code>library(retistruct)</code></pre>
+      <p>Suppose that you drop a short needle on ruled paper, what is then the probability that the needle comes to lie in a position where it crosses one of the lines? - Georges Buffon, 1777</p>
+<p>When the needle is the right length, the answer is pi!</p>
+<p>Here is a quick example in R of approximating the value of Pi by tossing digital needles onto lines paper.</p>
+<pre class="r"><code>library(retistruct)</code></pre>
 <p>Make a needle</p>
 <pre class="r"><code>match_stick_length &lt;- 20
 number_of_matches_in_a_box &lt;- 10000
@@ -99,9 +102,9 @@ single_match</code></pre>
         cos.angle), 2, 2))
   
 after_rotation</code></pre>
-<pre><code>##              [,1]       [,2]
-## point_1 -9.985515  0.5380346
-## point_2  9.985515 -0.5380346</code></pre>
+<pre><code>##              [,1]     [,2]
+## point_1 -1.364355  9.90649
+## point_2  1.364355 -9.90649</code></pre>
 <p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Then translate that line onto the table</p>
 <pre class="r"><code>  # Translation
@@ -138,8 +141,8 @@ after_rotation</code></pre>
 
 Throwing_matches()</code></pre>
 <pre><code>##                x        y
-## Point_1 19.60470 17.07055
-## Point_2 12.98547 24.56626</code></pre>
+## Point_1 32.56077 65.73050
+## Point_2 35.25895 75.35962</code></pre>
 <pre class="r"><code>for(i in 1:1000){
 Throwing_matches()
 }</code></pre>
@@ -186,22 +189,22 @@ colnames(crosses) &lt;- c(&quot;x.cross&quot;, &quot;y.cross&quot;, &quot;x.p1&q
                     &quot;y.surface.p2&quot;)
 head(crosses)</code></pre>
 <pre><code>##       x.cross y.cross     x.p1     y.p1     x.p2     y.p2 x.surface.p1
-## [1,] 66.08364      80 65.46719 80.88682 71.17493 72.67575            0
-## [2,] 86.90215      80 87.82216 81.28915 82.01318 73.14938            0
-## [3,] 13.50807      80 23.09351 82.11853 13.32915 79.96046            0
-## [4,] 78.24769      20 69.99890 18.47288 79.83181 20.29327            0
-## [5,] 59.51864      80 58.77765 71.47905 59.64398 81.44145            0
-## [6,] 38.37146      60 37.18274 65.77967 39.19731 55.98469            0
+## [1,] 56.82753      60 57.29754 62.63864 55.54390 52.79360            0
+## [2,] 29.62342      20 21.48110 25.46433 29.78456 19.89185            0
+## [3,] 50.85903      40 48.67552 43.61475 53.84599 35.05518            0
+## [4,] 60.37904      60 55.60521 58.16545 64.93967 61.75262            0
+## [5,] 57.99716      40 60.81689 43.09876 54.08667 35.70253            0
+## [6,] 70.65856      20 69.28777 19.32204 78.25141 23.75522            0
 ##      y.surface.p1 x.surface.p2 y.surface.p2
-## [1,]           80          100           80
-## [2,]           80          100           80
-## [3,]           80          100           80
-## [4,]           20          100           20
-## [5,]           80          100           80
-## [6,]           60          100           60</code></pre>
+## [1,]           60          100           60
+## [2,]           20          100           20
+## [3,]           40          100           40
+## [4,]           60          100           60
+## [5,]           40          100           40
+## [6,]           20          100           20</code></pre>
 <p><img src="/post/2018-06-12-calculate-pi-by-throwing-needles_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>pi_estimate &lt;- (2* match_stick_length * number_of_matches_in_a_box)/(distance_between_surface_lines * length(crosses[,1]))</code></pre>
-<pre><code>## [1] 3.122073</code></pre>
+<pre><code>## [1] 3.106555</code></pre>
 
     </div>
   </article>

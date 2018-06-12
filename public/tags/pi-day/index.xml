@@ -17,10 +17,10 @@
       <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/06/12/calculate-pi-by-throwing-needles/</guid>
-      <description>library(retistruct) Make a needle
-match_stick_length &amp;lt;- 20 number_of_matches_in_a_box &amp;lt;- 10000 distance_between_surface_lines &amp;lt;- 40 point_1 &amp;lt;- c(-(match_stick_length/2),(match_stick_length/2)) point_2 &amp;lt;- c(0,0) single_match &amp;lt;-cbind(point_1, point_2) rownames(single_match)&amp;lt;- c(&amp;quot;point_1&amp;quot;,&amp;quot;point_2&amp;quot;) colnames(single_match)&amp;lt;- c(&amp;quot;x&amp;quot;,&amp;quot;y&amp;quot;) single_match ## x y ## point_1 -10 0 ## point_2 10 0 ## Warning: package &amp;#39;rgl&amp;#39; was built under R version 3.4.4 ## Warning: package &amp;#39;shiny&amp;#39; was built under R version 3.4.4 Throw the match
-First rotate around the origin
- angle &amp;lt;- runif(1, min=1, max=360)*pi/180 xy &amp;lt;- as.</description>
+      <description>Suppose that you drop a short needle on ruled paper, what is then the probability that the needle comes to lie in a position where it crosses one of the lines? - Georges Buffon, 1777
+When the needle is the right length, the answer is pi!
+Here is a quick example in R of approximating the value of Pi by tossing digital needles onto lines paper.
+library(retistruct) Make a needle</description>
     </item>
     
   </channel>
