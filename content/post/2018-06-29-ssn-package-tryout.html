@@ -1,0 +1,126 @@
+---
+title: SSN package tryout
+author: Ty Tuff
+date: '2018-06-29'
+slug: ssn-package-tryout
+categories:
+  - R packages
+tags:
+  - SSN
+  - R packages
+---
+
+
+
+<p>Load SSN package.</p>
+<pre class="r"><code>require(SSN)</code></pre>
+<div id="simulate-stream-network" class="section level3">
+<h3>Simulate stream network</h3>
+<p>First we simulate 2 stream networks in the format which the SSN package expects to be given from STARS. We follow this by plotting the 2 networks with sampling sites depicted as black hollow circles and prediction sites as green filled circles.</p>
+<pre class="r"><code>my.ssn &lt;- createSSN(n = c(10, 10),
+          obsDesign = hardCoreDesign(c(200, 200), c(0.2, 0.4)),
+          predDesign = systematicDesign(c(0.3, 0.6)),
+          importToR = TRUE,
+          path = paste(getwd(), &quot;/ssnprac.ssn&quot;, sep = &quot;&quot;),
+          treeFunction = iterativeTreeLayout)
+plot(my.ssn, lwdLineCol = &quot;addfunccol&quot;, lwdLineEx = 10, lineCol = &quot;blue&quot;, cex = 2, pch = 1, xlab = &quot;x-coord&quot;, ylab = &quot;y-coord&quot;)
+plot(my.ssn, PredPointsID = &quot;preds&quot;, add = TRUE, pch = 16, col = &quot;green&quot;)</code></pre>
+<p><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The obsDesign and predDesign arguments are both functions which specify the way in which sampling and prediction sites are spread out in the network. These are:<br />
+1. binomialDesign(n) - uniformally and randomly distributes n points on the network 2. poissonDesign(lambda) - generates points on the network at a rate lambda 3. systematicDesign(spacing) - generates points that are at a constant distance away from each other 4. hardCoreDesign(n, inhibition_region) - generates points randomly and then eliminates them until they are are at least inhibition region away from each other There are 2 ways in which the stream network can be simulated: 1. igraphKamadaKawai - works faster but creates more unrealistic networks 2. iterativeTreeLayout - takes longer but makes more realistic networks Plot the strean network with sampling sites as black circles and prediction locations as green dots ### Generate stream network data First, we need to create the distance matrix calculating hydrological distance between sites</p>
+<pre class="r"><code>createDistMat(my.ssn, &quot;preds&quot;, o.write = TRUE, amongpreds = TRUE)</code></pre>
+<p>Second, we need to extract the observation and prediction dataframes and fill them with some dummy data.</p>
+<pre class="r"><code># Exract dataframes
+raw.obs &lt;- getSSNdata.frame(my.ssn, &quot;Obs&quot;)
+raw.pred &lt;- getSSNdata.frame(my.ssn, &quot;preds&quot;)
+# Fill dataframes
+raw.obs$cont1 &lt;- rnorm(length(raw.obs[,1]))
+raw.pred$cont1 &lt;- rnorm(length(raw.pred[,1]))
+raw.obs$cont2 &lt;- rnorm(length(raw.obs[,1]))
+raw.pred$cont2 &lt;- rnorm(length(raw.pred[,1]))
+raw.obs$factor1 &lt;- as.factor(sample.int(4, length(raw.obs[,1]), replace = TRUE))
+raw.pred$factor1 &lt;- as.factor(sample.int(4, length(raw.pred[,1]), replace = TRUE))
+raw.obs$random1 &lt;- as.factor(sample(1:3, length(raw.obs[,1]), replace = TRUE))
+raw.obs$random2 &lt;- as.factor(sample(1:4, length(raw.obs[,1]), replace = TRUE))
+raw.pred$random1 &lt;- as.factor(sample(1:3, length(raw.pred[,1]), replace = TRUE))
+raw.pred$random2 &lt;- as.factor(sample(1:4, length(raw.pred[,1]), replace = TRUE))</code></pre>
+<p>Third, the modified dataframes with the stream network data needs to be redistributed on the network with the spatial autocorrelated errors from the Ver Hoef and Peterson tail-up/tail-down models.</p>
+<pre class="r"><code>sim.out &lt;- SimulateOnSSN(my.ssn, ObsSimDF = raw.obs, PredSimDF = raw.pred, &quot;preds&quot;, formula = ~ cont1 + cont2 + factor1, coefficients = c(10, 1, 0, -2, 0, 2), CorModels = c(&quot;LinearSill.tailup&quot;, &quot;Mariah.taildown&quot;, &quot;Exponential.Euclid&quot;, &quot;random1&quot;, &quot;random2&quot;), use.nugget = TRUE, CorParms = c(3, 10, 2, 10, 1, 5, 1, 0.5, 0.1), addfunccol = &quot;addfunccol&quot;)</code></pre>
+<p>We can check to see that the coefficients and correlation models we supplied were implemented correctly</p>
+<pre class="r"><code>sim.out$FixedEffects</code></pre>
+<pre><code>##        Xnames Coefficient
+## 1 (Intercept)          10
+## 2       cont1           1
+## 3       cont2           0
+## 4    factor12          -2
+## 5    factor13           0
+## 6    factor14           2</code></pre>
+<pre class="r"><code>sim.out$CorParms</code></pre>
+<pre><code>##             CorModel    type Parameter
+## 1  LinearSill.tailup parsill       3.0
+## 2  LinearSill.tailup   range      10.0
+## 3    Mariah.taildown parsill       2.0
+## 4    Mariah.taildown   range      10.0
+## 5 Exponential.Euclid parsill       1.0
+## 6 Exponential.Euclid   range       5.0
+## 7            random1 parsill       1.0
+## 8            random2 parsill       0.5
+## 9             nugget parsill       0.1</code></pre>
+<p>Finally, we can extract and visualize the stream network with the data represented by coloured circles.</p>
+<pre class="r"><code>sim.ssn &lt;- sim.out$ssn.object
+plot(sim.ssn, &quot;Sim_Values&quot;, xlab = &quot;x-coord&quot;, ylab = &quot;y-coord&quot;, cex = 1.5)</code></pre>
+<p><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="modelling-stream-data" class="section level3">
+<h3>Modelling stream data</h3>
+<p>To model the stream, we will use the prediction sites and attempt to predict the values at those locations which we generated in the previous section. We have to extract the dataframes again so that we can store the correct values from the prediction sites and compare them against the ones generated by the model we use later on.</p>
+<pre class="r"><code>sim.obs &lt;- getSSNdata.frame(sim.ssn, &quot;Obs&quot;)
+sim.pred &lt;- getSSNdata.frame(sim.ssn, &quot;preds&quot;)
+stored.preds &lt;- sim.pred$Sim_Values
+sim.pred$Sim_Values &lt;- NA
+sim.ssn &lt;- putSSNdata.frame(sim.pred, sim.ssn, &quot;preds&quot;)</code></pre>
+<p>Next we will fit a model to our data and check out the output.</p>
+<pre class="r"><code>glmssn.out &lt;- glmssn(Sim_Values ~ cont1 + cont2 + factor1, sim.ssn, CorModels = c(&quot;LinearSill.tailup&quot;, &quot;Mariah.taildown&quot;, &quot;Exponential.Euclid&quot;, &quot;random1&quot;, &quot;random2&quot;), addfunccol = &quot;addfunccol&quot;)
+summary(glmssn.out)</code></pre>
+<pre><code>## 
+## Call:
+## glmssn(formula = Sim_Values ~ cont1 + cont2 + factor1, ssn.object = sim.ssn, 
+##     CorModels = c(&quot;LinearSill.tailup&quot;, &quot;Mariah.taildown&quot;, &quot;Exponential.Euclid&quot;, 
+##         &quot;random1&quot;, &quot;random2&quot;), addfunccol = &quot;addfunccol&quot;)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.4991 -1.8241 -0.3704  1.9408  4.8603 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  8.86394    1.05319   8.416  &lt; 2e-16 ***
+## cont1        1.17061    0.15355   7.624  &lt; 2e-16 ***
+## cont2        0.20818    0.15285   1.362  0.17999    
+## factor11     0.00000         NA      NA       NA    
+## factor12    -0.82209    0.52869  -1.555  0.12696    
+## factor13     0.07513    0.43502   0.173  0.86365    
+## factor14     2.03622    0.48852   4.168  0.00014 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Covariance Parameters:
+##    Covariance.Model Parameter Estimate
+##   LinearSill.tailup   parsill  4.17437
+##   LinearSill.tailup     range 27.34177
+##     Mariah.taildown   parsill  2.13489
+##     Mariah.taildown     range 27.30258
+##  Exponential.Euclid   parsill  0.25652
+##  Exponential.Euclid     range 21.55739
+##             random1   parsill  0.00169
+##             random2   parsill  0.34879
+##              Nugget   parsill  0.15788
+## 
+## Residual standard error: 2.659725
+## Generalized R-squared: 0.7029644</code></pre>
+<p>Finally, to assess how well our model performed we will plot the real values against the values predicted by the model.</p>
+<pre class="r"><code>glmssn.pred &lt;- predict(glmssn.out, &quot;preds&quot;)
+predictions &lt;- getSSNdata.frame(glmssn.pred, &quot;preds&quot;)
+plot(stored.preds, predictions$Sim_Values, xlab = &quot;True&quot;, ylab = &quot;Predicted&quot;, pch = 19)</code></pre>
+<p><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>

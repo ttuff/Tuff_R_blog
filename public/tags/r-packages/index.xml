@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R Packages on Thinking for a living</title>
+    <link>/tags/r-packages/</link>
+    <description>Recent content in R Packages on Thinking for a living</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r-packages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SSN package tryout</title>
+      <link>/2018/06/29/ssn-package-tryout/</link>
+      <pubDate>Fri, 29 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/06/29/ssn-package-tryout/</guid>
+      <description>Load SSN package.
+require(SSN) Simulate stream network First we simulate 2 stream networks in the format which the SSN package expects to be given from STARS. We follow this by plotting the 2 networks with sampling sites depicted as black hollow circles and prediction sites as green filled circles.
+my.ssn &amp;lt;- createSSN(n = c(10, 10), obsDesign = hardCoreDesign(c(200, 200), c(0.2, 0.4)), predDesign = systematicDesign(c(0.3, 0.6)), importToR = TRUE, path = paste(getwd(), &amp;quot;/ssnprac.</description>
+    </item>
+    
+  </channel>
+</rss>
