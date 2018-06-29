@@ -16,7 +16,7 @@ require(SSN)
 ```
 
 ### Simulate stream network
-First we simulate 2 stream networks in the format which the SSN package expects to be given from STARS. We follow this by plotting the 2 networks with sampling sites depicted as black hollow circles and prediction sites as green filled circles.
+First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
 
 ```{r}
 my.ssn <- createSSN(n = c(10, 10),
