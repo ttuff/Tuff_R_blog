@@ -23,7 +23,7 @@ my.ssn <- createSSN(n = c(10, 10),
           obsDesign = hardCoreDesign(c(200, 200), c(0.2, 0.4)),
           predDesign = systematicDesign(c(0.3, 0.6)),
           importToR = TRUE,
-          path = paste(getwd(), "/ssnprac.ssn", sep = ""),
+          #path = paste(getwd(), "/ssnprac.ssn", sep = ""),
           treeFunction = iterativeTreeLayout)
 plot(my.ssn, lwdLineCol = "addfunccol", lwdLineEx = 10, lineCol = "blue", cex = 2, pch = 1, xlab = "x-coord", ylab = "y-coord")
 plot(my.ssn, PredPointsID = "preds", add = TRUE, pch = 16, col = "green")
