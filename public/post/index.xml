@@ -19,7 +19,7 @@
       <guid>/2018/06/29/ssn-package-tryout/</guid>
       <description>Load SSN package.
 require(SSN) Simulate stream network First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
-my.ssn &amp;lt;- createSSN(n = c(10, 10), obsDesign = hardCoreDesign(c(200, 200), c(0.2, 0.4)), predDesign = systematicDesign(c(0.3, 0.6)), importToR = TRUE, path = paste(getwd(), &amp;quot;/ssnprac.ssn&amp;quot;, sep = &amp;quot;&amp;quot;), treeFunction = iterativeTreeLayout) plot(my.ssn, lwdLineCol = &amp;quot;addfunccol&amp;quot;, lwdLineEx = 10, lineCol = &amp;quot;blue&amp;quot;, cex = 2, pch = 1, xlab = &amp;quot;x-coord&amp;quot;, ylab = &amp;quot;y-coord&amp;quot;) plot(my.</description>
+# Delete any old simulations in the working directory unlink(&amp;quot;simulated_network&amp;quot;, recursive = TRUE) # Generate and save a simulated network my.ssn &amp;lt;- createSSN(n = c(50, 50, 50, 50), obsDesign = hardCoreDesign(c(200, 100, 100, 200), c(0.2, 0.4, 0.6, 0.6)), predDesign = systematicDesign(c(0.3, 0.3, 0.3, 0.</description>
     </item>
     
     <item>

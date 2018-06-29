@@ -19,14 +19,25 @@ require(SSN)
 First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
 
 ```{r}
-my.ssn <- createSSN(n = c(10, 10),
-          obsDesign = hardCoreDesign(c(200, 200), c(0.2, 0.4)),
-          predDesign = systematicDesign(c(0.3, 0.6)),
+# Delete any old simulations in the working directory
+unlink("simulated_network", recursive = TRUE)
+
+# Generate and save a simulated network
+my.ssn <- createSSN(n = c(50, 50, 50, 50),
+          obsDesign = hardCoreDesign(c(200, 100, 100, 200), c(0.2, 0.4, 0.6, 0.6)),
+          predDesign = systematicDesign(c(0.3, 0.3, 0.3, 0.9)),
           importToR = TRUE,
-          #path = paste(getwd(), "/ssnprac.ssn", sep = ""),
+          path = paste0(getwd(), "/simulated_network"),
           treeFunction = iterativeTreeLayout)
-plot(my.ssn, lwdLineCol = "addfunccol", lwdLineEx = 10, lineCol = "blue", cex = 2, pch = 1, xlab = "x-coord", ylab = "y-coord")
-plot(my.ssn, PredPointsID = "preds", add = TRUE, pch = 16, col = "green")
+my.ssn
+
+```
+
+
+```{r, echo=FALSE}
+plot(my.ssn, lwdLineCol = "addfunccol", lwdLineEx = 10, lineCol = "blue", cex = .2, pch = 19, xlab = "", ylab = "", bty="n", xaxt="n", yaxt="n")
+plot(my.ssn, PredPointsID = "preds", pch = 19, col = "green",  xaxt="n", yaxt="n", add=TRUE, cex=0.1)
+
 ```
 
 
