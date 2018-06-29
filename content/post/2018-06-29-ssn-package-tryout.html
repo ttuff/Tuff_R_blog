@@ -30,12 +30,12 @@ my.ssn &lt;- createSSN(n = c(50, 50, 50, 50),
 my.ssn</code></pre>
 <pre><code>## Object of class Spatial Stream Network
 ## 
-## Object includes observations on 8 variables across 248 sites within the bounding box
+## Object includes observations on 8 variables across 245 sites within the bounding box
 ##         min      max
-## x -1.549068 46.91969
-## y  0.000000 14.98577
+## x -2.620873 41.94905
+## y  0.000000 11.82713
 ## 
-## Object also includes 1 set of prediction points with 558 locations
+## Object also includes 1 set of prediction points with 552 locations
 ## 
 ## Variables recorded are (found using names(object)):
 ## $Obs
@@ -111,35 +111,35 @@ summary(glmssn.out)</code></pre>
 ##         &quot;random1&quot;, &quot;random2&quot;), addfunccol = &quot;addfunccol&quot;)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -8.5901 -1.5053  0.3569  1.8752 12.2692 
+##      Min       1Q   Median       3Q      Max 
+## -9.66967 -1.86890  0.09944  2.05329  6.04797 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 11.001750   0.883031  12.459   &lt;2e-16 ***
-## cont1        0.852890   0.111294   7.663   &lt;2e-16 ***
-## cont2        0.003588   0.103201   0.035    0.972    
-## factor11     0.000000         NA      NA       NA    
-## factor12    -2.242061   0.298535  -7.510   &lt;2e-16 ***
-## factor13    -0.285068   0.284140  -1.003    0.317    
-## factor14     1.468562   0.286417   5.127   &lt;2e-16 ***
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.14862    0.93465  10.858   &lt;2e-16 ***
+## cont1        1.05207    0.09386  11.209   &lt;2e-16 ***
+## cont2        0.04714    0.10713   0.440    0.660    
+## factor11     0.00000         NA      NA       NA    
+## factor12    -1.87938    0.30482  -6.165   &lt;2e-16 ***
+## factor13    -0.08957    0.29360  -0.305    0.761    
+## factor14     1.49114    0.30305   4.920   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Covariance Parameters:
 ##    Covariance.Model Parameter Estimate
-##   LinearSill.tailup   parsill  3.03286
-##   LinearSill.tailup     range  7.00650
-##     Mariah.taildown   parsill  2.65937
-##     Mariah.taildown     range 22.12947
-##  Exponential.Euclid   parsill  1.22313
-##  Exponential.Euclid     range 11.00683
-##             random1   parsill  1.43495
-##             random2   parsill  0.07650
-##              Nugget   parsill  0.00902
+##   LinearSill.tailup   parsill    2.463
+##   LinearSill.tailup     range   70.067
+##     Mariah.taildown   parsill    1.228
+##     Mariah.taildown     range   12.042
+##  Exponential.Euclid   parsill    1.776
+##  Exponential.Euclid     range    2.727
+##             random1   parsill    1.801
+##             random2   parsill    0.466
+##              Nugget   parsill    0.241
 ## 
-## Residual standard error: 2.904449
-## Generalized R-squared: 0.4758977</code></pre>
+## Residual standard error: 2.823935
+## Generalized R-squared: 0.5386351</code></pre>
 <p>Finally, to assess how well our model performed we will plot the real values against the values predicted by the model.</p>
 <pre class="r"><code>glmssn.pred &lt;- predict(glmssn.out, &quot;preds&quot;)
 predictions &lt;- getSSNdata.frame(glmssn.pred, &quot;preds&quot;)
