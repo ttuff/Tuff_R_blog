@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.42.2" />
+<meta name="generator" content="Hugo 0.36" />
 
 
 <title>SSN package tryout - Thinking for a living</title>
@@ -70,29 +70,32 @@
 
     <div class="article-content">
       <p>Load SSN package.</p>
-<pre class="r"><code>require(SSN)</code></pre>
+<pre class="r"><code>library(SSN)</code></pre>
+<pre><code>## Warning: package &#39;SSN&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## Warning: package &#39;RSQLite&#39; was built under R version 3.4.4</code></pre>
 <div id="simulate-stream-network" class="section level3">
 <h3>Simulate stream network</h3>
-<p>First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.</p>
+<p>First we simulate several stream networks in SSN object form. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.</p>
 <pre class="r"><code># Delete any old simulations in the working directory
 unlink(&quot;simulated_network&quot;, recursive = TRUE)
 
 # Generate and save a simulated network
-my.ssn &lt;- createSSN(n = c(50, 50, 50, 50),
-          obsDesign = hardCoreDesign(c(200, 100, 100, 200), c(0.2, 0.4, 0.6, 0.6)),
-          predDesign = systematicDesign(c(0.3, 0.3, 0.3, 0.9)),
+my.ssn &lt;- createSSN(n = c(200, 200, 100, 100),
+          obsDesign = hardCoreDesign(c(100, 100, 100, 100), c(0.1, 0.4, 0.6, 0.9)),
+          predDesign = systematicDesign(c(0.3, 0.5, 0.7, 0.9)),
           importToR = TRUE,
           path = paste0(getwd(), &quot;/simulated_network&quot;),
           treeFunction = iterativeTreeLayout)
+#str(my.ssn)
 my.ssn</code></pre>
 <pre><code>## Object of class Spatial Stream Network
 ## 
-## Object includes observations on 8 variables across 245 sites within the bounding box
+## Object includes observations on 8 variables across 277 sites within the bounding box
 ##         min      max
-## x -2.620873 41.94905
-## y  0.000000 11.82713
+## x -4.271398 76.99664
+## y  0.000000 24.57128
 ## 
-## Object also includes 1 set of prediction points with 552 locations
+## Object also includes 1 set of prediction points with 1323 locations
 ## 
 ## Variables recorded are (found using names(object)):
 ## $Obs
@@ -104,7 +107,7 @@ my.ssn</code></pre>
 ## [6] &quot;ratio&quot;      &quot;shreve&quot;     &quot;addfunccol&quot;
 ## 
 ## Generic functions that work with this object include names, plot, print, summary, hist, boxplot and qqnorm</code></pre>
-<p><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="/post/2018-06-29-ssn-package-tryout_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <p>The obsDesign and predDesign arguments are both functions which specify the way in which sampling and prediction sites are spread out in the network. These are:<br />
 1. binomialDesign(n) - uniformally and randomly distributes n points on the network 2. poissonDesign(lambda) - generates points on the network at a rate lambda 3. systematicDesign(spacing) - generates points that are at a constant distance away from each other 4. hardCoreDesign(n, inhibition_region) - generates points randomly and then eliminates them until they are are at least inhibition region away from each other There are 2 ways in which the stream network can be simulated: 1. igraphKamadaKawai - works faster but creates more unrealistic networks 2. iterativeTreeLayout - takes longer but makes more realistic networks Plot the strean network with sampling sites as black circles and prediction locations as green dots ### Generate stream network data First, we need to create the distance matrix calculating hydrological distance between sites</p>
 <pre class="r"><code>createDistMat(my.ssn, &quot;preds&quot;, o.write = TRUE, amongpreds = TRUE)</code></pre>
@@ -168,35 +171,35 @@ summary(glmssn.out)</code></pre>
 ##         &quot;random1&quot;, &quot;random2&quot;), addfunccol = &quot;addfunccol&quot;)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -9.66967 -1.86890  0.09944  2.05329  6.04797 
+##     Min      1Q  Median      3Q     Max 
+## -7.4320 -1.8643 -0.1954  1.4541  8.0972 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 10.14862    0.93465  10.858   &lt;2e-16 ***
-## cont1        1.05207    0.09386  11.209   &lt;2e-16 ***
-## cont2        0.04714    0.10713   0.440    0.660    
-## factor11     0.00000         NA      NA       NA    
-## factor12    -1.87938    0.30482  -6.165   &lt;2e-16 ***
-## factor13    -0.08957    0.29360  -0.305    0.761    
-## factor14     1.49114    0.30305   4.920   &lt;2e-16 ***
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.429934   0.634460  16.439   &lt;2e-16 ***
+## cont1        1.074122   0.120125   8.942   &lt;2e-16 ***
+## cont2        0.008221   0.127342   0.065    0.949    
+## factor11     0.000000         NA      NA       NA    
+## factor12    -2.131031   0.344957  -6.178   &lt;2e-16 ***
+## factor13    -0.309970   0.330605  -0.938    0.349    
+## factor14     1.683188   0.340898   4.938   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Covariance Parameters:
 ##    Covariance.Model Parameter Estimate
-##   LinearSill.tailup   parsill    2.463
-##   LinearSill.tailup     range   70.067
-##     Mariah.taildown   parsill    1.228
-##     Mariah.taildown     range   12.042
-##  Exponential.Euclid   parsill    1.776
-##  Exponential.Euclid     range    2.727
-##             random1   parsill    1.801
-##             random2   parsill    0.466
-##              Nugget   parsill    0.241
+##   LinearSill.tailup   parsill    2.545
+##   LinearSill.tailup     range  138.280
+##     Mariah.taildown   parsill    2.578
+##     Mariah.taildown     range    6.391
+##  Exponential.Euclid   parsill    0.708
+##  Exponential.Euclid     range   22.929
+##             random1   parsill    0.308
+##             random2   parsill    0.434
+##              Nugget   parsill    0.324
 ## 
-## Residual standard error: 2.823935
-## Generalized R-squared: 0.5386351</code></pre>
+## Residual standard error: 2.626106
+## Generalized R-squared: 0.487867</code></pre>
 <p>Finally, to assess how well our model performed we will plot the real values against the values predicted by the model.</p>
 <pre class="r"><code>glmssn.pred &lt;- predict(glmssn.out, &quot;preds&quot;)
 predictions &lt;- getSSNdata.frame(glmssn.pred, &quot;preds&quot;)

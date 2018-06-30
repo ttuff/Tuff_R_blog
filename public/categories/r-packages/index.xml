@@ -18,8 +18,8 @@
       
       <guid>/2018/06/29/ssn-package-tryout/</guid>
       <description>Load SSN package.
-require(SSN) Simulate stream network First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
-# Delete any old simulations in the working directory unlink(&amp;quot;simulated_network&amp;quot;, recursive = TRUE) # Generate and save a simulated network my.ssn &amp;lt;- createSSN(n = c(50, 50, 50, 50), obsDesign = hardCoreDesign(c(200, 100, 100, 200), c(0.2, 0.4, 0.6, 0.6)), predDesign = systematicDesign(c(0.3, 0.3, 0.3, 0.</description>
+library(SSN) ## Warning: package &amp;#39;SSN&amp;#39; was built under R version 3.4.4 ## Warning: package &amp;#39;RSQLite&amp;#39; was built under R version 3.4.4 Simulate stream network First we simulate several stream networks in SSN object form. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
+# Delete any old simulations in the working directory unlink(&amp;quot;simulated_network&amp;quot;, recursive = TRUE) # Generate and save a simulated network my.</description>
     </item>
     
   </channel>

@@ -12,31 +12,31 @@ tags:
 
 Load SSN package.
 ```{r message=FALSE}
-require(SSN)
+library(SSN)
 ```
 
 ### Simulate stream network
-First we simulate 2 stream networks. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
+First we simulate several stream networks in SSN object form. Sampling sites depicted as black hollow circles and prediction sites as green filled circles.
 
 ```{r}
 # Delete any old simulations in the working directory
 unlink("simulated_network", recursive = TRUE)
 
 # Generate and save a simulated network
-my.ssn <- createSSN(n = c(50, 50, 50, 50),
-          obsDesign = hardCoreDesign(c(200, 100, 100, 200), c(0.2, 0.4, 0.6, 0.6)),
-          predDesign = systematicDesign(c(0.3, 0.3, 0.3, 0.9)),
+my.ssn <- createSSN(n = c(200, 200, 100, 100),
+          obsDesign = hardCoreDesign(c(100, 100, 100, 100), c(0.1, 0.4, 0.6, 0.9)),
+          predDesign = systematicDesign(c(0.3, 0.5, 0.7, 0.9)),
           importToR = TRUE,
           path = paste0(getwd(), "/simulated_network"),
           treeFunction = iterativeTreeLayout)
+#str(my.ssn)
 my.ssn
-
 ```
 
 
 ```{r, echo=FALSE}
-plot(my.ssn, lwdLineCol = "addfunccol", lwdLineEx = 10, lineCol = "blue", cex = .2, pch = 19, xlab = "", ylab = "", bty="n", xaxt="n", yaxt="n")
-plot(my.ssn, PredPointsID = "preds", pch = 19, col = "green",  xaxt="n", yaxt="n", add=TRUE, cex=0.1)
+plot(my.ssn, lwdLineCol = "addfunccol", lwdLineEx = 5, lineCol = adjustcolor("blue", alpha=0.2), cex = .2, pch = 19, xlab = "", ylab = "", bty="n", xaxt="n", yaxt="n", VariableName="upDist")
+plot(my.ssn, PredPointsID = "preds", pch = 19, col = "green",  xaxt="n", yaxt="n", add=FALSE, cex=0.1)
 
 ```
 
