@@ -17,7 +17,7 @@ tags:
 
 ### We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. 
 
-![Future squirels battle for food scraps near homeless man's dome tent](/Users/Ty/Desktop/GitHub/Tuff_R_blog/Tuff_R_blog/content/post/pi_day/animals-with-lightsabers-11.png) 
+![Future squirels battle for food scraps near homeless man's dome tent](animals-with-lightsabers-11.png) 
 
 ```{r, echo=FALSE}
 library(retistruct)
