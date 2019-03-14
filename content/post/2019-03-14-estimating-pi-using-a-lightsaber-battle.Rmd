@@ -17,9 +17,9 @@ library(png)
 
 # Happy Pi Day everyone!! 
 
-### Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I made with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.
+### Overview: Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle in R. This is a fun math demonstration where we first build an army of saber-wielding critters in the park and then cut transects across the battlefield and count the number of contacts we make with lightsabers along the way. After the battle, we take a weighted ratio of hits vs. misses to estimate Pi.
 
-## We start in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal. 
+## Our adventure begins in a futuristic world where urban wildlife has aquired lightsabers and taken over Montreal. 
 
 ```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
 par(mar=c(0,0,0,0))
@@ -31,10 +31,9 @@ lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 ```
 
-
-### To battle these savage beasts, we must learn to make our own lightsaber. 
+### We are about to join the battle so, it is probably a good time to learn how lightsabers work. We represent a lightsaber with a line, meaning that we assume the saber has no width. We describe that line using xy coordinates in a matrix.  
+ 
 ```{r}
-
 set.seed(1.1)
 light_saber_length <- 20
 number_of_animal_sabers_in_a_park <- 5000
@@ -61,9 +60,7 @@ rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 lines(single_saber, col=adjustcolor("#00bcff", 0.8), lwd=8)
 ```
 
-## Then distribute the army of saber-wielding critters across the landscape.
-
-### First we rotate around the origin to set the instantanious angle of each animal's individual saber.
+### To move the object, we multiply that matrix by transformation matrices to rotate and move the object around. We rotate the object by multiplying the object matrix by the rotation matrix specifying a random angle. 
 
 ```{r, echo=1:25}
   angle <- runif(1, min=1, max=360)*pi/180
@@ -100,8 +97,9 @@ lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 
 
+### We then move the saber to a location the battlefield. Note: order is important. We must always rotate around the origin first before moving into place on the landscape. It does not work the other way.  
 
-### Then we move (a.k.a. translate) the saber to a location on the landscape where the critter is located. 
+###  
 
 ```{r}
   # Translation
@@ -139,7 +137,7 @@ lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 ```
 
 
-### Create a function to rotate and distribute sabers to all the critters on the battlefield.
+### Create a function to rotate and distribute lightsabers to all the critters on the battlefield.
 
 ```{r}
 critter_saber <- function(){
@@ -168,16 +166,14 @@ critter_saber <- function(){
 critter_saber()
 ```
 
-Repeat it many times to create and army
+### Repeat it many times to create an army of lightsaber-weilding critters. We assume that all the critters are battling vigorously and indiscriminately with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed.
 ```{r}
 for(i in 1:number_of_animal_sabers_in_a_park){
 critter_saber()
 }
 ```
 
-### We assume that all the critters are battling vigously and indescriminintly with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed. 
-
-```{r, echo=FALSE, fig.cap="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect."}
+```{r, echo=FALSE, fig.cap="An army of lightsaber-wielding critters in the middle of the battlefield. This is the position of each critter's lightsaber at the moment we pass them on our transect."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
@@ -260,10 +256,10 @@ points(b[1], b[2], cex=6, col="white")
 
 
 
-```{r, echo=FALSE, fig.cap="Team prepares for transects", out.width = '100%'}
+```{r, echo=FALSE, fig.cap="Team prepares for transects"}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
-     xlim=c(-20,20), ylim=c(-4,4))
+     xlim=c(-100,100), ylim=c(0,1))
 #Get the plot information so the image will fill the plot box, and draw it
 ima <- readPNG("wp2848056.png")
 lim <- par()
