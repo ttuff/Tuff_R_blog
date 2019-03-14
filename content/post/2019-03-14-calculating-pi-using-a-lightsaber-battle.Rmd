@@ -1,0 +1,341 @@
+---
+title: Calculating Pi using a lightsaber battle
+author: Ty Tuff
+date: '2019-03-14'
+slug: calculating-pi-using-a-lightsaber-battle
+categories:
+  - pi day games
+tags:
+  - Pi day
+  - Pi
+---
+
+
+# Happy Pi Day everyone!! 
+
+### Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors. 
+
+### We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. 
+
+![Future squirels battle for food scraps near homeless man's dome tent](/Users/Ty/Desktop/animals-with-lightsabers-11.png) 
+
+```{r, include=FALSE}
+library(retistruct)
+library(png)
+
+```
+
+
+To battle these savage beasts, we must learn to make our own light sabor. 
+```{r}
+set.seed(1.1)
+light_sabor_length <- 20
+number_of_animal_sabors_in_a_park <- 5000
+distance_between_transects <- 40.1
+
+point_1 <- c(-(light_sabor_length/2),(light_sabor_length/2))
+point_2 <- c(0,0)
+single_sabor <-cbind(point_1, point_2)
+rownames(single_sabor)<- c("point_1","point_2")
+colnames(single_sabor)<- c("x","y")
+single_sabor
+```
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+# image from Wiki commons
+ima <- readPNG("/Users/Ty/Desktop/Lightsaber_blue_rotate.png")
+
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-10,10), ylim=c(-10,10))
+#Get the plot information so the image will fill the plot box, and draw it
+lim <- par()
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=8)
+```
+
+Then distribute the army of sabor-wielding critters across the landscape.
+
+First we rotate around the origin to set the instantanious angle of each animal's
+individual sabor.
+
+```{r, echo=1:25}
+
+  angle <- runif(1, min=1, max=360)*pi/180
+  xy <- as.matrix(single_sabor)
+  
+  # Rotation
+  cos.angle <- cos(angle)
+  sin.angle <- sin(angle)
+  after_rotation <- xy %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2))
+  
+after_rotation
+
+
+
+```
+
+
+
+
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-10,10), ylim=c(-10,10))
+
+lim <- par()
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=8)
+
+abline(v=0)
+abline(h=0)
+lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
+
+
+```
+
+
+
+
+
+Then we move (a.k.a. translate) the sabor to a location on the landscape where 
+the critter is located. We assume that all the critters are battling vigously 
+and indescriminintly with each other so they are randomly distributed across 
+space and the angles of all the sabors are uniformly distributed. 
+
+```{r}
+  # Translation
+  translation.x <- runif(1, min=10, max=90)
+  translation.y <- runif(1, min=10, max=90)
+  translation <- matrix(
+    c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord <- after_rotation + translation
+  colnames(new_coord) <- c("x","y")
+  rownames(new_coord) <- c("Point_1","Point_2")
+  
+```
+
+
+```{r, echo=FALSE}
+new_coord <- after_rotation + matrix(c(50,50,50,50),2,2)
+```
+
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-10,301), ylim=c(-10,301))
+
+park <- readPNG("/Users/Ty/Desktop/park.png")
+lim2 <- par()
+rasterImage(park, lim2$usr[1], lim2$usr[3], lim2$usr[2]-0.5, lim2$usr[4])
+
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+abline(v=0)
+abline(h=0)
+
+lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=4)
+lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
+```
+
+
+Repeat for an entire box of matches
+
+```{r}
+critter_sabor <- function(){
+  single_sabor <-cbind(c(-5,5),c(0,0))
+  angle <- runif(1, min=1, max=360)*pi/180
+  xy <- as.matrix(single_sabor)
+  
+  # Rotation
+  cos.angle <- cos(angle)
+  sin.angle <- sin(angle)
+  after_rotation <- xy %*% matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2, byrow=TRUE )
+  
+  # Translation
+  translation.x <- runif(1, min=10, max=90)
+  translation.y <- runif(1, min=10, max=90)
+  translation <- matrix(
+    c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord <- after_rotation + translation
+  colnames(new_coord) <- c("x","y")
+  rownames(new_coord) <- c("Point_1","Point_2")
+  
+  return(new_coord)   
+}
+
+critter_sabor()
+```
+
+```{r}
+for(i in 1:number_of_animal_sabors_in_a_park){
+critter_sabor()
+}
+```
+
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-1,101), ylim=c(-1,101))
+
+park <- readPNG("/Users/Ty/Desktop/park.png")
+lim <- par()
+rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+
+for(i in 1:number_of_animal_sabors_in_a_park){
+lines(critter_sabor(), col=adjustcolor("#00bcff", 0.4), lwd=1)
+}
+```
+
+
+```{r, echo=1}
+surface_line <- function(line_height = 0){
+  matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
+  }
+surface_line(20)
+```
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-1,101), ylim=c(-1,101))
+rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+
+lines(surface_line(30), col=adjustcolor("white", 0.8), lwd=3)
+```
+
+
+
+```{r}
+
+one_sabor <- critter_sabor()
+one_surface_line <- surface_line(30)
+line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
+                       one_surface_line[2,], interior.only = TRUE)
+```
+
+
+```{r, echo=FALSE, eval=TRUE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-1,101), ylim=c(-1,101))
+rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+a <- line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
+                            one_surface_line[2,], interior.only = TRUE)
+lines(one_surface_line, col=adjustcolor("white", 0.8), lwd=3)
+lines(one_sabor, col=adjustcolor("#00bcff", 0.8), lwd=3)
+points(a[1], a[2], cex=6, col="white")
+
+one_sabor_2 <- critter_sabor()
+one_surface_line_2 <- surface_line(30)
+b <- line.line.intersection(one_sabor_2[1,], one_sabor_2[2,], 
+                            one_surface_line_2[1,], one_surface_line_2[2,], 
+                            interior.only = TRUE)
+lines(one_sabor_2, col=adjustcolor("#00bcff", 0.8), lwd=3)
+points(b[1], b[2], cex=6, col="white")
+```
+
+
+
+
+Make a list of surface lines and a list of matches
+
+```{r}
+list_of_matches <- array(NA,dim = c(2,2,number_of_animal_sabors_in_a_park))
+list_of_surface_lines <- array(NA,dim = c(2,2,6))
+
+for(i in 1:number_of_animal_sabors_in_a_park){
+  list_of_matches[,,i] <- critter_sabor()
+}
+
+line_placement <- seq(0,100, by=20)
+for(i in 1:6){
+  list_of_surface_lines[,,i] <- surface_line(line_placement[i])
+}
+```
+
+![Me and my team planning our transects](/Users/Ty/Desktop/wp2848056.png)
+
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-1,101), ylim=c(-1,101))
+
+rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+for(i in 1:6){
+lines(list_of_surface_lines[,,i], col=adjustcolor("white", 1), lwd=3)
+
+}
+
+for(i in 1:number_of_animal_sabors_in_a_park){
+lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
+}
+
+```
+
+
+```{r}
+crosses <- matrix(NA, 1, 10, byrow=TRUE)
+
+for(i in 1:dim(list_of_matches)[3]){
+for(j in 1:dim(list_of_surface_lines)[3]){
+  crosses <- rbind(crosses, c(
+    line.line.intersection(list_of_matches[1,,i], list_of_matches[2,,i], 
+                           list_of_surface_lines[1,,j],     
+    list_of_surface_lines[2,,j], interior.only = TRUE), 
+    
+    list_of_matches[1,,i], list_of_matches[2,,i], list_of_surface_lines[1,,j], 
+    list_of_surface_lines[2,,j])
+    )
+  }
+}
+
+crosses <- crosses[which(is.na(crosses[,1]) == FALSE),]
+colnames(crosses) <- c("x.cross", "y.cross", "x.p1", "y.p1", "x.p2", 
+                    "y.p2", "x.surface.p1", "y.surface.p1", "x.surface.p2", 
+                    "y.surface.p2")
+head(crosses)
+```
+
+
+```{r, echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-1,101), ylim=c(-1,101))
+rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+
+
+for(i in 1:number_of_animal_sabors_in_a_park){
+lines(list_of_matches[,,i], col=adjustcolor("white", 0.6), lwd=2)
+}
+
+for(i in 1:length(crosses[,1])){
+lines(x = c(crosses[i,3], crosses[i,5]) , y = c(crosses[i,4], crosses[i,6]),  
+      col=adjustcolor("#00bcff", 0.9), cex=1, pch=19, lwd=2)
+}
+
+for(i in 1:6){
+lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
+}
+
+```
+
+
+
+```{r}
+pi_estimate <- (2* light_sabor_length * number_of_animal_sabors_in_a_park)/(distance_between_transects * length(crosses[,1]))
+options(digits=20)
+pi_estimate
+```
+
