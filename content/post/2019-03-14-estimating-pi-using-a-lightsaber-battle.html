@@ -1,14 +1,12 @@
 ---
-title: Calculating Pi using a lightsaber battle
-author: Ty Tuff
+title: "Estimating Pi using a lightsaber battle"
+author: "Ty Tuff"
 date: '2019-03-14'
-slug: calculating-pi-using-a-lightsaber-battle
-categories:
-  - pi day games
+slug: estimating-pi-using-a-lightsaber-battle
 tags:
-  - Pi day
-  - Pi
-featuredImage: "animals-with-lightsabers-11.png"
+- Pi
+- Pi day
+categories: pi day games
 ---
 
 
@@ -39,7 +37,7 @@ single_sabor</code></pre>
 <pre><code>##           x y
 ## point_1 -10 0
 ## point_2  10 0</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Then distribute the army of sabor-wielding critters across the landscape.</p>
 <p>First we rotate around the origin to set the instantanious angle of each animal’s
 individual sabor.</p>
@@ -56,7 +54,7 @@ after_rotation</code></pre>
 <pre><code>##              [,1]      [,2]
 ## point_1  1.100398 -9.939272
 ## point_2 -1.100398  9.939272</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Then we move (a.k.a. translate) the sabor to a location on the landscape where
 the critter is located. We assume that all the critters are battling vigously
 and indescriminintly with each other so they are randomly distributed across
@@ -69,7 +67,7 @@ space and the angles of all the sabors are uniformly distributed.</p>
   new_coord &lt;- after_rotation + translation
   colnames(new_coord) &lt;- c(&quot;x&quot;,&quot;y&quot;)
   rownames(new_coord) &lt;- c(&quot;Point_1&quot;,&quot;Point_2&quot;)</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Repeat for an entire box of matches</p>
 <pre class="r"><code>critter_sabor &lt;- function(){
   single_sabor &lt;-cbind(c(-5,5),c(0,0))
@@ -101,20 +99,20 @@ critter_sabor()</code></pre>
 <pre class="r"><code>for(i in 1:number_of_animal_sabors_in_a_park){
 critter_sabor()
 }</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){
   matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
   }</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>one_sabor &lt;- critter_sabor()
 one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
                        one_surface_line[2,], interior.only = TRUE)</code></pre>
 <pre><code>## [1] 75.73794 30.00000</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Make a list of surface lines and a list of matches</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_animal_sabors_in_a_park))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
@@ -131,7 +129,7 @@ for(i in 1:6){
 <img src="wp2848056.png" alt="Me and my team planning our transects" />
 <p class="caption">Me and my team planning our transects</p>
 </div>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -166,7 +164,7 @@ head(crosses)</code></pre>
 ## [4,]           20          100           20
 ## [5,]           20          100           20
 ## [6,]           20          100           20</code></pre>
-<p><img src="/post/2019-03-14-calculating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>pi_estimate &lt;- (2* light_sabor_length * number_of_animal_sabors_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate</code></pre>
