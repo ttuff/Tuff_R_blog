@@ -19,10 +19,10 @@ tags:
 
 ![Future squirels battle for food scraps near homeless man's dome tent](/Users/Ty/Desktop/GitHub/Tuff_R_blog/Tuff_R_blog/content/post/pi_day/animals-with-lightsabers-11.png) 
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 library(retistruct)
 library(png)
-setwd("/Users/Ty/Desktop/GitHub/Tuff_R_blog/Tuff_R_blog/content/post/pi_day/")
+#setwd("/Users/Ty/Desktop/GitHub/Tuff_R_blog/Tuff_R_blog/content/post/pi_day/")
 ```
 
 
