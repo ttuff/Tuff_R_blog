@@ -1,13 +1,12 @@
 ---
-title: Estimating Pi using a lightsaber battle
-author: Ty Tuff
+title: "Estimating Pi using a lightsaber battle"
+author: "Ty Tuff"
 date: '2019-03-14'
 slug: estimating-pi-using-a-lightsaber-battle
-categories:
-  - pi day games
 tags:
-  - Pi
-  - Pi day
+- Pi
+- Pi day
+categories: pi day games
 ---
 
 ---
