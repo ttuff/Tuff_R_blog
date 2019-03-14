@@ -15,10 +15,9 @@ library(png)
 #setwd("/Users/Ty/Desktop/GitHub/Tuff_R_blog/Tuff_R_blog/content/post/pi_day/")
 ```
 
-
 # Happy Pi Day everyone!! 
 
-### Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we're done, we take a ratio of hits vs. misses to estimate Pi.
+### Today is 3-14, and those numbers are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I make with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.
 
 ## We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal. 
 
@@ -350,7 +349,6 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
 ```
 
 
-Calculate Pi
 
 ### We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
 
