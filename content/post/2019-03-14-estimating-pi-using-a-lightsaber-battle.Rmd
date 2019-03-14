@@ -19,7 +19,7 @@ library(png)
 
 ### Overview: Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle in R. This is a fun math demonstration where we first build an army of saber-wielding critters in the park and then cut transects across the battlefield and count the number of contacts we make with lightsabers along the way. After the battle, we take a weighted ratio of hits vs. misses to estimate Pi.
 
-## Our adventure begins in a futuristic world where urban wildlife has aquired lightsabers and taken over Montreal. 
+## Our adventure begins in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal. 
 
 ```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
 par(mar=c(0,0,0,0))
@@ -31,7 +31,7 @@ lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 ```
 
-### We are about to join the battle so, it is probably a good time to learn how lightsabers work. We represent a lightsaber with a line, meaning that we assume the saber has no width. We describe that line using xy coordinates in a matrix.  
+### We are about to join the battle. It is probably a good time to learn how lightsabers work. We represent a lightsaber with a line, meaning that we assume the saber has no width. We describe that line using xy coordinates in a matrix.  
  
 ```{r}
 set.seed(1.1)
@@ -98,8 +98,7 @@ lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 
 ### We then move the saber to a location the battlefield. Note: order is important. We must always rotate around the origin first before moving into place on the landscape. It does not work the other way.  
-
-###  
+ 
 
 ```{r}
   # Translation
@@ -166,7 +165,8 @@ critter_saber <- function(){
 critter_saber()
 ```
 
-### Repeat it many times to create an army of lightsaber-weilding critters. We assume that all the critters are battling vigorously and indiscriminately with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed.
+### Repeat it many times to create an army of lightsaber-wielding critters. We assume that all the critters are battling vigorously and indiscriminately with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed.
+
 ```{r}
 for(i in 1:number_of_animal_sabers_in_a_park){
 critter_saber()
@@ -282,7 +282,7 @@ for(i in 1:6){
 }
 ```
 
-
+### The battle is on! We rush along our transects and dual with every lightsaber that crosses our path. We are so skilled that we hit every lightsaber to cross our transect but never receive a hit or hit anything off of our transect line.  
 
 ```{r, echo=FALSE, fig.cap="The battle is on. We charge across the battlefield and hit every critter saber along our transect."}
 par(mar=c(0,0,0,0))
@@ -304,7 +304,7 @@ lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
 
 ```
 
-### Calculate which sabers crossed our path.
+### The battle is over! How did we do? We better count up all our hits and compare them to our misses.
 ```{r}
 crosses <- matrix(NA, 1, 10, byrow=TRUE)
 
@@ -353,7 +353,7 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
 
 
 
-### We take the ratio of the lightsabers we made contact with againt the ones we missed, scaled by distance, and we get a great approximation of Pi! 
+### We take the ratio of the lightsabers we made contact with against the ones we missed, scaled by distance, and we get a great approximation of Pi! 
 
 ```{r}
 pi_estimate <- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))

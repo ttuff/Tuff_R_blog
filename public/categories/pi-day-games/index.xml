@@ -17,7 +17,7 @@
       <pubDate>Thu, 14 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/03/14/estimating-pi-using-a-lightsaber-battle/</guid>
-      <description>Happy Pi Day everyone!! Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I made with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.</description>
+      <description>Happy Pi Day everyone!! Overview: Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle in R. This is a fun math demonstration where we first build an army of saber-wielding critters in the park and then cut transects across the battlefield and count the number of contacts we make with lightsabers along the way. After the battle, we take a weighted ratio of hits vs.</description>
     </item>
     
     <item>

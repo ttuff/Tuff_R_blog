@@ -13,19 +13,19 @@ categories: pi day games
 
 <div id="happy-pi-day-everyone" class="section level1">
 <h1>Happy Pi Day everyone!!</h1>
-<div id="today-is-3-14-and-those-digits-are-the-first-three-digits-of-pi.-to-celebrate-i-estimated-pi-using-a-lightsaber-battle.-i-first-build-an-army-of-saber-wielding-critters-in-la-fountaine-park-then-i-cut-6-transects-across-the-battlefield-and-count-the-number-of-contacts-i-made-with-critter-sabers-along-the-way.-after-the-battle-i-take-a-ratio-of-hits-vs.misses-to-estimate-pi." class="section level3">
-<h3>Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I made with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.</h3>
+<div id="overview-today-is-3-14-and-those-digits-are-the-first-three-digits-of-pi.-to-celebrate-i-estimated-pi-using-a-lightsaber-battle-in-r.-this-is-a-fun-math-demonstration-where-we-first-build-an-army-of-saber-wielding-critters-in-the-park-and-then-cut-transects-across-the-battlefield-and-count-the-number-of-contacts-we-make-with-lightsabers-along-the-way.-after-the-battle-we-take-a-weighted-ratio-of-hits-vs.misses-to-estimate-pi." class="section level3">
+<h3>Overview: Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle in R. This is a fun math demonstration where we first build an army of saber-wielding critters in the park and then cut transects across the battlefield and count the number of contacts we make with lightsabers along the way. After the battle, we take a weighted ratio of hits vs. misses to estimate Pi.</h3>
 </div>
-<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-lightsabers-and-taken-over-montreal." class="section level2">
-<h2>We start in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal.</h2>
+<div id="our-adventure-begins-in-a-futuristic-world-where-urban-wildlife-have-aquired-lightsabers-and-taken-over-montreal." class="section level2">
+<h2>Our adventure begins in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal.</h2>
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
 <img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-2-1.png" alt="Future squirels battle for food scraps near homeless man's dome tent." width="100%" />
 <p class="caption">
 Figure 1: Future squirels battle for food scraps near homeless man’s dome tent.
 </p>
 </div>
-<div id="to-battle-these-savage-beasts-we-must-learn-to-make-our-own-lightsaber." class="section level3">
-<h3>To battle these savage beasts, we must learn to make our own lightsaber.</h3>
+<div id="we-are-about-to-join-the-battle.-it-is-probably-a-good-time-to-learn-how-lightsabers-work.-we-represent-a-lightsaber-with-a-line-meaning-that-we-assume-the-saber-has-no-width.-we-describe-that-line-using-xy-coordinates-in-a-matrix." class="section level3">
+<h3>We are about to join the battle. It is probably a good time to learn how lightsabers work. We represent a lightsaber with a line, meaning that we assume the saber has no width. We describe that line using xy coordinates in a matrix.</h3>
 <pre class="r"><code>set.seed(1.1)
 light_saber_length &lt;- 20
 number_of_animal_sabers_in_a_park &lt;- 5000
@@ -47,11 +47,8 @@ Figure 2: Represent our lightsaber as a line with no width. A single beam of lig
 </p>
 </div>
 </div>
-</div>
-<div id="then-distribute-the-army-of-saber-wielding-critters-across-the-landscape." class="section level2">
-<h2>Then distribute the army of saber-wielding critters across the landscape.</h2>
-<div id="first-we-rotate-around-the-origin-to-set-the-instantanious-angle-of-each-animals-individual-saber." class="section level3">
-<h3>First we rotate around the origin to set the instantanious angle of each animal’s individual saber.</h3>
+<div id="to-move-the-object-we-multiply-that-matrix-by-transformation-matrices-to-rotate-and-move-the-object-around.-we-rotate-the-object-by-multiplying-the-object-matrix-by-the-rotation-matrix-specifying-a-random-angle." class="section level3">
+<h3>To move the object, we multiply that matrix by transformation matrices to rotate and move the object around. We rotate the object by multiplying the object matrix by the rotation matrix specifying a random angle.</h3>
 <pre class="r"><code>  angle &lt;- runif(1, min=1, max=360)*pi/180
   xy &lt;- as.matrix(single_saber)
   
@@ -72,8 +69,8 @@ Figure 3: We rotate the lightsaber around the origin to change its angle.
 </p>
 </div>
 </div>
-<div id="then-we-move-a.k.a.-translate-the-saber-to-a-location-on-the-landscape-where-the-critter-is-located." class="section level3">
-<h3>Then we move (a.k.a. translate) the saber to a location on the landscape where the critter is located.</h3>
+<div id="we-then-move-the-saber-to-a-location-the-battlefield.-note-order-is-important.-we-must-always-rotate-around-the-origin-first-before-moving-into-place-on-the-landscape.-it-does-not-work-the-other-way." class="section level3">
+<h3>We then move the saber to a location the battlefield. Note: order is important. We must always rotate around the origin first before moving into place on the landscape. It does not work the other way.</h3>
 <pre class="r"><code>  # Translation
   translation.x &lt;- runif(1, min=10, max=90)
   translation.y &lt;- runif(1, min=10, max=90)
@@ -89,8 +86,8 @@ Figure 4: After the angle is set, translate the lightsaber to a random location 
 </p>
 </div>
 </div>
-<div id="create-a-function-to-rotate-and-distribute-sabers-to-all-the-critters-on-the-battlefield." class="section level3">
-<h3>Create a function to rotate and distribute sabers to all the critters on the battlefield.</h3>
+<div id="create-a-function-to-rotate-and-distribute-lightsabers-to-all-the-critters-on-the-battlefield." class="section level3">
+<h3>Create a function to rotate and distribute lightsabers to all the critters on the battlefield.</h3>
 <pre class="r"><code>critter_saber &lt;- function(){
   single_saber &lt;-cbind(c(-5,5),c(0,0))
   angle &lt;- runif(1, min=1, max=360)*pi/180
@@ -118,17 +115,16 @@ critter_saber()</code></pre>
 <pre><code>##                x        y
 ## Point_1 21.93899 84.59096
 ## Point_2 30.33012 79.15139</code></pre>
-<p>Repeat it many times to create and army</p>
+</div>
+<div id="repeat-it-many-times-to-create-an-army-of-lightsaber-wielding-critters.-we-assume-that-all-the-critters-are-battling-vigorously-and-indiscriminately-with-each-other-so-they-are-randomly-distributed-across-space-and-the-angles-of-all-the-sabers-are-uniformly-distributed." class="section level3">
+<h3>Repeat it many times to create an army of lightsaber-wielding critters. We assume that all the critters are battling vigorously and indiscriminately with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed.</h3>
 <pre class="r"><code>for(i in 1:number_of_animal_sabers_in_a_park){
 critter_saber()
 }</code></pre>
-</div>
-<div id="we-assume-that-all-the-critters-are-battling-vigously-and-indescriminintly-with-each-other-so-they-are-randomly-distributed-across-space-and-the-angles-of-all-the-sabers-are-uniformly-distributed." class="section level3">
-<h3>We assume that all the critters are battling vigously and indescriminintly with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed.</h3>
 <div class="figure"><span id="fig:unnamed-chunk-12"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-12-1.png" alt="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect." width="672" />
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-12-1.png" alt="An army of lightsaber-wielding critters in the middle of the battlefield. This is the position of each critter's lightsaber at the moment we pass them on our transect." width="672" />
 <p class="caption">
-Figure 5: An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter’s lightsaber at the moment we pass them on our transect.
+Figure 5: An army of lightsaber-wielding critters in the middle of the battlefield. This is the position of each critter’s lightsaber at the moment we pass them on our transect.
 </p>
 </div>
 <div class="figure"><span id="fig:unnamed-chunk-13"></span>
@@ -161,7 +157,7 @@ Figure 8: Build a mechanism to identify when a lightsaber has crossed my transec
 </p>
 </div>
 <div class="figure"><span id="fig:unnamed-chunk-18"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-18-1.png" alt="Team prepares for transects" width="100%" />
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-18-1.png" alt="Team prepares for transects" width="672" />
 <p class="caption">
 Figure 9: Team prepares for transects
 </p>
@@ -180,6 +176,9 @@ line_placement &lt;- seq(0,100, by=20)
 for(i in 1:6){
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
+</div>
+<div id="the-battle-is-on-we-rush-along-our-transects-and-dual-with-every-lightsaber-that-crosses-our-path.-we-are-so-skilled-that-we-hit-every-lightsaber-to-cross-our-transect-but-never-receive-a-hit-or-hit-anything-off-of-our-transect-line." class="section level3">
+<h3>The battle is on! We rush along our transects and dual with every lightsaber that crosses our path. We are so skilled that we hit every lightsaber to cross our transect but never receive a hit or hit anything off of our transect line.</h3>
 <div class="figure"><span id="fig:unnamed-chunk-20"></span>
 <img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-20-1.png" alt="The battle is on. We charge across the battlefield and hit every critter saber along our transect." width="672" />
 <p class="caption">
@@ -187,8 +186,8 @@ Figure 10: The battle is on. We charge across the battlefield and hit every crit
 </p>
 </div>
 </div>
-<div id="calculate-which-sabers-crossed-our-path." class="section level3">
-<h3>Calculate which sabers crossed our path.</h3>
+<div id="the-battle-is-over-how-did-we-do-we-better-count-up-all-our-hits-and-compare-them-to-our-misses." class="section level3">
+<h3>The battle is over! How did we do? We better count up all our hits and compare them to our misses.</h3>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -230,8 +229,8 @@ Figure 11: All the lightsabers we struck on our transects.
 </p>
 </div>
 </div>
-<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-scaled-by-distance-and-we-get-a-great-approximation-of-pi" class="section level3">
-<h3>We take the ratio of the lightsabers we made contact with againt the ones we missed, scaled by distance, and we get a great approximation of Pi!</h3>
+<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-against-the-ones-we-missed-scaled-by-distance-and-we-get-a-great-approximation-of-pi" class="section level3">
+<h3>We take the ratio of the lightsabers we made contact with against the ones we missed, scaled by distance, and we get a great approximation of Pi!</h3>
 <pre class="r"><code>pi_estimate &lt;- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate</code></pre>
