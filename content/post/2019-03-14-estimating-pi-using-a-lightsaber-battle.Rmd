@@ -101,8 +101,7 @@ lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 
 
-Then we move (a.k.a. translate) the saber to a location on the landscape where 
-the critter is located. 
+### Then we move (a.k.a. translate) the saber to a location on the landscape where the critter is located. 
 
 ```{r}
   # Translation
@@ -140,7 +139,7 @@ lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 ```
 
 
-Create a function to rotate and distribute sabers to all the critters on the battlefield.
+### Create a function to rotate and distribute sabers to all the critters on the battlefield.
 
 ```{r}
 critter_saber <- function(){
@@ -176,9 +175,7 @@ critter_saber()
 }
 ```
 
-We assume that all the critters are battling vigously 
-and indescriminintly with each other so they are randomly distributed across 
-space and the angles of all the sabers are uniformly distributed. 
+### We assume that all the critters are battling vigously and indescriminintly with each other so they are randomly distributed across space and the angles of all the sabers are uniformly distributed. 
 
 ```{r, echo=FALSE, fig.cap="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect."}
 par(mar=c(0,0,0,0))
@@ -273,7 +270,7 @@ lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
 ```
 
-Prepare a list of all transects and all critter sabers so we can calculate contacts between them
+### Prepare a list of all transects and all critter sabers so we can calculate contacts between them
 
 ```{r}
 list_of_matches <- array(NA,dim = c(2,2,number_of_animal_sabers_in_a_park))
@@ -311,7 +308,7 @@ lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
 
 ```
 
-Calculate which sabers crossed our path.
+### Calculate which sabers crossed our path.
 ```{r}
 crosses <- matrix(NA, 1, 10, byrow=TRUE)
 
