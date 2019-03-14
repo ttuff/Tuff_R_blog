@@ -17,9 +17,9 @@ library(png)
 
 # Happy Pi Day everyone!! 
 
-### Today is 3-14, and those numbers are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I make with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.
+### Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I made with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.
 
-## We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal. 
+## We start in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal. 
 
 ```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
 par(mar=c(0,0,0,0))
@@ -32,7 +32,7 @@ rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 ```
 
 
-### To battle these savage beasts, we must learn to make our own light saber. 
+### To battle these savage beasts, we must learn to make our own lightsaber. 
 ```{r}
 
 set.seed(1.1)
@@ -196,6 +196,16 @@ lines(critter_saber(), col=adjustcolor("#00bcff", 0.4), lwd=1)
 ```
 
 
+```{r, echo=FALSE, fig.cap="We better get in there! Things aren't looking good.", out.width = '100%'}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-10,10), ylim=c(-10,10))
+#Get the plot information so the image will fill the plot box, and draw it
+ima <- readPNG("animals-with-lightsabers-9.png")
+lim <- par()
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+```
+
 ```{r, echo=1}
 surface_line <- function(line_height = 0){
   matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
@@ -281,7 +291,7 @@ for(i in 1:6){
 
 
 
-```{r, echo=FALSE, fig.cap="After the angle is set, translate the lightsaber to a random location on the battlefield."}
+```{r, echo=FALSE, fig.cap="The battle is on. We charge across the battlefield and hit every critter saber along our transect."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
@@ -301,7 +311,7 @@ lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
 
 ```
 
-Calculate which sabers crossed my transect.
+Calculate which sabers crossed our path.
 ```{r}
 crosses <- matrix(NA, 1, 10, byrow=TRUE)
 
@@ -326,7 +336,7 @@ head(crosses)
 ```
 
 
-```{r, echo=FALSE, fig.cap="All the lightsabers we struck on my transect."}
+```{r, echo=FALSE, fig.cap="All the lightsabers we struck on our transects."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
@@ -350,7 +360,7 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
 
 
 
-### We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
+### We take the ratio of the lightsabers we made contact with againt the ones we missed, scaled by distance, and we get a great approximation of Pi! 
 
 ```{r}
 pi_estimate <- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))

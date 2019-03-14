@@ -71,19 +71,19 @@
     <div class="article-content">
       <div id="happy-pi-day-everyone" class="section level1">
 <h1>Happy Pi Day everyone!!</h1>
-<div id="today-is-3-14-and-those-numbers-are-the-first-three-digits-of-pi.-to-celebrate-i-estimated-pi-using-a-lightsaber-battle.-i-first-build-an-army-of-saber-wielding-critters-in-la-fountaine-park-then-i-cut-6-transects-across-the-battlefield-and-count-the-number-of-contacts-i-make-with-critter-sabers-along-the-way.-after-the-battle-i-take-a-ratio-of-hits-vs.misses-to-estimate-pi." class="section level3">
-<h3>Today is 3-14, and those numbers are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I make with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.</h3>
+<div id="today-is-3-14-and-those-digits-are-the-first-three-digits-of-pi.-to-celebrate-i-estimated-pi-using-a-lightsaber-battle.-i-first-build-an-army-of-saber-wielding-critters-in-la-fountaine-park-then-i-cut-6-transects-across-the-battlefield-and-count-the-number-of-contacts-i-made-with-critter-sabers-along-the-way.-after-the-battle-i-take-a-ratio-of-hits-vs.misses-to-estimate-pi." class="section level3">
+<h3>Today is 3-14, and those digits are the first three digits of Pi. To celebrate, I estimated Pi using a lightsaber battle. I first build an army of saber-wielding critters in La Fountaine park, then I cut 6 transects across the battlefield and count the number of contacts I made with critter-sabers along the way. After the battle, I take a ratio of hits vs. misses to estimate Pi.</h3>
 </div>
-<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-light-sabers-and-taken-over-montreal." class="section level2">
-<h2>We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal.</h2>
+<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-lightsabers-and-taken-over-montreal." class="section level2">
+<h2>We start in a futuristic world where urban wildlife have aquired lightsabers and taken over Montreal.</h2>
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
 <img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-2-1.png" alt="Future squirels battle for food scraps near homeless man's dome tent." width="100%" />
 <p class="caption">
 Figure 1: Future squirels battle for food scraps near homeless man’s dome tent.
 </p>
 </div>
-<div id="to-battle-these-savage-beasts-we-must-learn-to-make-our-own-light-saber." class="section level3">
-<h3>To battle these savage beasts, we must learn to make our own light saber.</h3>
+<div id="to-battle-these-savage-beasts-we-must-learn-to-make-our-own-lightsaber." class="section level3">
+<h3>To battle these savage beasts, we must learn to make our own lightsaber.</h3>
 <pre class="r"><code>set.seed(1.1)
 light_saber_length &lt;- 20
 number_of_animal_sabers_in_a_park &lt;- 5000
@@ -186,16 +186,22 @@ space and the angles of all the sabers are uniformly distributed.</p>
 Figure 5: An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter’s lightsaber at the moment we pass them on our transect.
 </p>
 </div>
+<div class="figure"><span id="fig:unnamed-chunk-13"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-13-1.png" alt="We better get in there! Things aren't looking good." width="100%" />
+<p class="caption">
+Figure 6: We better get in there! Things aren’t looking good.
+</p>
+</div>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){
   matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
   }</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-14"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-14-1.png" alt="My transect through the army of critters." width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-15"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-15-1.png" alt="My transect through the army of critters." width="672" />
 <p class="caption">
-Figure 6: My transect through the army of critters.
+Figure 7: My transect through the army of critters.
 </p>
 </div>
 <pre class="r"><code>one_saber &lt;- critter_saber()
@@ -203,16 +209,16 @@ one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_saber[1,], one_saber[2,], one_surface_line[1,], 
                        one_surface_line[2,], interior.only = TRUE)</code></pre>
 <pre><code>## [1] 75.73794 30.00000</code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-16"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-16-1.png" alt="Build a mechanism to identify when a lightsaber has crossed my transect line." width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-17"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" alt="Build a mechanism to identify when a lightsaber has crossed my transect line." width="672" />
 <p class="caption">
-Figure 7: Build a mechanism to identify when a lightsaber has crossed my transect line.
+Figure 8: Build a mechanism to identify when a lightsaber has crossed my transect line.
 </p>
 </div>
-<div class="figure"><span id="fig:unnamed-chunk-17"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" alt="Team prepares for transects" width="100%" />
+<div class="figure"><span id="fig:unnamed-chunk-18"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-18-1.png" alt="Team prepares for transects" width="100%" />
 <p class="caption">
-Figure 8: Team prepares for transects
+Figure 9: Team prepares for transects
 </p>
 </div>
 <p>Prepare a list of all transects and all critter sabers so we can calculate contacts between them</p>
@@ -227,13 +233,13 @@ line_placement &lt;- seq(0,100, by=20)
 for(i in 1:6){
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-19"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" alt="After the angle is set, translate the lightsaber to a random location on the battlefield." width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-20"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-20-1.png" alt="The battle is on. We charge across the battlefield and hit every critter saber along our transect." width="672" />
 <p class="caption">
-Figure 9: After the angle is set, translate the lightsaber to a random location on the battlefield.
+Figure 10: The battle is on. We charge across the battlefield and hit every critter saber along our transect.
 </p>
 </div>
-<p>Calculate which sabers crossed my transect.</p>
+<p>Calculate which sabers crossed our path.</p>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -268,15 +274,15 @@ head(crosses)</code></pre>
 ## [4,]           20          100           20
 ## [5,]           20          100           20
 ## [6,]           20          100           20</code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-21"></span>
-<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-21-1.png" alt="All the lightsabers we struck on my transect." width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-22"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-22-1.png" alt="All the lightsabers we struck on our transects." width="672" />
 <p class="caption">
-Figure 10: All the lightsabers we struck on my transect.
+Figure 11: All the lightsabers we struck on our transects.
 </p>
 </div>
 </div>
-<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-and-we-get-a-great-approximation-of-pi" class="section level3">
-<h3>We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi!</h3>
+<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-scaled-by-distance-and-we-get-a-great-approximation-of-pi" class="section level3">
+<h3>We take the ratio of the lightsabers we made contact with againt the ones we missed, scaled by distance, and we get a great approximation of Pi!</h3>
 <pre class="r"><code>pi_estimate &lt;- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate</code></pre>
