@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.36" />
+
+
+<title>Estimating Pi using a lightsaber battle - Thinking for a living</title>
+<meta property="og:title" content="Estimating Pi using a lightsaber battle - Thinking for a living">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/ttuff/Tuff_R_blog">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/ty_tuff">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Estimating Pi using a lightsaber battle</h1>
+
+    
+    <span class="article-date">2019/03/14</span>
+    
+
+    <div class="article-content">
+      <div id="happy-pi-day-everyone" class="section level1">
+<h1>Happy Pi Day everyone!!</h1>
+<div id="since-the-date-today-approximates-pi-3.14-i-thought-i-would-celebrate-by-deriving-an-approximation-of-pi-using-light-sabors." class="section level3">
+<h3>Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors.</h3>
+</div>
+<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-light-sabors-and-taken-over-montreal." class="section level3">
+<h3>We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal.</h3>
+<div class="figure">
+<img src="animals-with-lightsabers-11.png" alt="Future squirels battle for food scraps near homeless man’s dome tent" />
+<p class="caption">Future squirels battle for food scraps near homeless man’s dome tent</p>
+</div>
+<p>To battle these savage beasts, we must learn to make our own light sabor.</p>
+<pre class="r"><code>set.seed(1.1)
+light_sabor_length &lt;- 20
+number_of_animal_sabors_in_a_park &lt;- 5000
+distance_between_transects &lt;- 40.1
+
+point_1 &lt;- c(-(light_sabor_length/2),(light_sabor_length/2))
+point_2 &lt;- c(0,0)
+single_sabor &lt;-cbind(point_1, point_2)
+rownames(single_sabor)&lt;- c(&quot;point_1&quot;,&quot;point_2&quot;)
+colnames(single_sabor)&lt;- c(&quot;x&quot;,&quot;y&quot;)
+single_sabor</code></pre>
+<pre><code>##           x y
+## point_1 -10 0
+## point_2  10 0</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Then distribute the army of sabor-wielding critters across the landscape.</p>
+<p>First we rotate around the origin to set the instantanious angle of each animal’s
+individual sabor.</p>
+<pre class="r"><code>  angle &lt;- runif(1, min=1, max=360)*pi/180
+  xy &lt;- as.matrix(single_sabor)
+  
+  # Rotation
+  cos.angle &lt;- cos(angle)
+  sin.angle &lt;- sin(angle)
+  after_rotation &lt;- xy %*% t(matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2))
+  
+after_rotation</code></pre>
+<pre><code>##              [,1]      [,2]
+## point_1  1.100398 -9.939272
+## point_2 -1.100398  9.939272</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Then we move (a.k.a. translate) the sabor to a location on the landscape where
+the critter is located. We assume that all the critters are battling vigously
+and indescriminintly with each other so they are randomly distributed across
+space and the angles of all the sabors are uniformly distributed.</p>
+<pre class="r"><code>  # Translation
+  translation.x &lt;- runif(1, min=10, max=90)
+  translation.y &lt;- runif(1, min=10, max=90)
+  translation &lt;- matrix(
+    c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord &lt;- after_rotation + translation
+  colnames(new_coord) &lt;- c(&quot;x&quot;,&quot;y&quot;)
+  rownames(new_coord) &lt;- c(&quot;Point_1&quot;,&quot;Point_2&quot;)</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Repeat for an entire box of matches</p>
+<pre class="r"><code>critter_sabor &lt;- function(){
+  single_sabor &lt;-cbind(c(-5,5),c(0,0))
+  angle &lt;- runif(1, min=1, max=360)*pi/180
+  xy &lt;- as.matrix(single_sabor)
+  
+  # Rotation
+  cos.angle &lt;- cos(angle)
+  sin.angle &lt;- sin(angle)
+  after_rotation &lt;- xy %*% matrix(c(cos.angle, sin.angle, -sin.angle, 
+        cos.angle), 2, 2, byrow=TRUE )
+  
+  # Translation
+  translation.x &lt;- runif(1, min=10, max=90)
+  translation.y &lt;- runif(1, min=10, max=90)
+  translation &lt;- matrix(
+    c(translation.x,translation.x,translation.y,translation.y), 2, 2)
+  new_coord &lt;- after_rotation + translation
+  colnames(new_coord) &lt;- c(&quot;x&quot;,&quot;y&quot;)
+  rownames(new_coord) &lt;- c(&quot;Point_1&quot;,&quot;Point_2&quot;)
+  
+  return(new_coord)   
+}
+
+critter_sabor()</code></pre>
+<pre><code>##                x        y
+## Point_1 21.93899 84.59096
+## Point_2 30.33012 79.15139</code></pre>
+<pre class="r"><code>for(i in 1:number_of_animal_sabors_in_a_park){
+critter_sabor()
+}</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>surface_line &lt;- function(line_height = 0){
+  matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
+  }</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    0   20
+## [2,]  100   20</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>one_sabor &lt;- critter_sabor()
+one_surface_line &lt;- surface_line(30)
+line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
+                       one_surface_line[2,], interior.only = TRUE)</code></pre>
+<pre><code>## [1] 75.73794 30.00000</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Make a list of surface lines and a list of matches</p>
+<pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_animal_sabors_in_a_park))
+list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
+
+for(i in 1:number_of_animal_sabors_in_a_park){
+  list_of_matches[,,i] &lt;- critter_sabor()
+}
+
+line_placement &lt;- seq(0,100, by=20)
+for(i in 1:6){
+  list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
+}</code></pre>
+<div class="figure">
+<img src="wp2848056.png" alt="Me and my team planning our transects" />
+<p class="caption">Me and my team planning our transects</p>
+</div>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
+
+for(i in 1:dim(list_of_matches)[3]){
+for(j in 1:dim(list_of_surface_lines)[3]){
+  crosses &lt;- rbind(crosses, c(
+    line.line.intersection(list_of_matches[1,,i], list_of_matches[2,,i], 
+                           list_of_surface_lines[1,,j],     
+    list_of_surface_lines[2,,j], interior.only = TRUE), 
+    
+    list_of_matches[1,,i], list_of_matches[2,,i], list_of_surface_lines[1,,j], 
+    list_of_surface_lines[2,,j])
+    )
+  }
+}
+
+crosses &lt;- crosses[which(is.na(crosses[,1]) == FALSE),]
+colnames(crosses) &lt;- c(&quot;x.cross&quot;, &quot;y.cross&quot;, &quot;x.p1&quot;, &quot;y.p1&quot;, &quot;x.p2&quot;, 
+                    &quot;y.p2&quot;, &quot;x.surface.p1&quot;, &quot;y.surface.p1&quot;, &quot;x.surface.p2&quot;, 
+                    &quot;y.surface.p2&quot;)
+head(crosses)</code></pre>
+<pre><code>##       x.cross y.cross     x.p1     y.p1     x.p2     y.p2 x.surface.p1
+## [1,] 63.08661      20 64.26028 15.53502 61.71804 25.20647            0
+## [2,] 14.37017      80 12.61642 83.36074 17.24275 74.49524            0
+## [3,] 49.44207      80 44.92515 85.23335 51.45904 77.66313            0
+## [4,] 47.22221      20 49.37535 17.30391 43.13500 25.11787            0
+## [5,] 24.43356      20 23.31048 15.67796 25.82545 25.35654            0
+## [6,] 56.12789      20 53.77911 24.62028 58.31078 15.70602            0
+##      y.surface.p1 x.surface.p2 y.surface.p2
+## [1,]           20          100           20
+## [2,]           80          100           80
+## [3,]           80          100           80
+## [4,]           20          100           20
+## [5,]           20          100           20
+## [6,]           20          100           20</code></pre>
+<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code>pi_estimate &lt;- (2* light_sabor_length * number_of_animal_sabors_in_a_park)/(distance_between_transects * length(crosses[,1]))
+options(digits=20)
+pi_estimate</code></pre>
+<pre><code>## [1] 3.1427417593382642735</code></pre>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          
+          <li>
+            
+          	<a href="https://scholar.google.com/citations?user=jxAk620AAAAJ&hl=en&oi=ao" class="footer-links-kudos"><img src="/images/Google.png" width="100" height="45"></a>
+          	<a href="https://www.researchgate.net/profile/Ty_Tuff" class="footer-links-kudos"><img src="/images/ResearchGate.png" width="50" height="50"></a>
+          	<a href="https://twitter.com/ty_tuff" class="footer-links-kudos"><img src="/images/Twitter.png" width="50" height="50"></a>
+			<a href="https://github.com/ttuff" class="footer-links-kudos"><img src="/images/GitHub.png" width="50" height="50"></a>	          
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

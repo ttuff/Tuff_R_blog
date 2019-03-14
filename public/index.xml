@@ -6,10 +6,32 @@
     <description>Recent content on Thinking for a living</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Calculating Pi using a lightsaber battle</title>
+      <link>/2019/03/14/calculating-pi-using-a-lightsaber-battle/</link>
+      <pubDate>Thu, 14 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/14/calculating-pi-using-a-lightsaber-battle/</guid>
+      <description>Happy Pi Day everyone!! Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors.  We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. Future squirels battle for food scraps near homeless man’s dome tent
+ To battle these savage beasts, we must learn to make our own light sabor.
+set.seed(1.1) light_sabor_length &amp;lt;- 20 number_of_animal_sabors_in_a_park &amp;lt;- 5000 distance_between_transects &amp;lt;- 40.</description>
+    </item>
+    
+    <item>
+      <title>Estimating Pi using a lightsaber battle</title>
+      <link>/2019/03/14/estimating-pi-using-a-lightsaber-battle/</link>
+      <pubDate>Thu, 14 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/14/estimating-pi-using-a-lightsaber-battle/</guid>
+      <description>Happy Pi Day everyone!! Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors.  We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. Future squirels battle for food scraps near homeless man’s dome tent
+ To battle these savage beasts, we must learn to make our own light sabor.
+set.seed(1.1) light_sabor_length &amp;lt;- 20 number_of_animal_sabors_in_a_park &amp;lt;- 5000 distance_between_transects &amp;lt;- 40.</description>
+    </item>
     
     <item>
       <title>SSN package tryout</title>
