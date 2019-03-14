@@ -9,17 +9,6 @@ tags:
 categories: pi day games
 ---
 
-# Happy Pi Day everyone!! 
-
-### Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors. 
-
-### We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. 
-
-```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
-knitr::include_graphics("animals-with-lightsabers-11.png")
-```
-
-
 ```{r, echo=FALSE}
 library(retistruct)
 library(png)
@@ -27,23 +16,40 @@ library(png)
 ```
 
 
-To battle these savage beasts, we must learn to make our own light sabor. 
+# Happy Pi Day everyone!! 
+
+## Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we're done, we take a ratio of hits vs. misses to estimate Pi.
+
+### We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal. 
+
+```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-10,10), ylim=c(-10,10))
+#Get the plot information so the image will fill the plot box, and draw it
+ima <- readPNG("animals-with-lightsabers-11.png")
+lim <- par()
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
+```
+
+
+### To battle these savage beasts, we must learn to make our own light saber. 
 ```{r}
 
 set.seed(1.1)
-light_sabor_length <- 20
-number_of_animal_sabors_in_a_park <- 5000
+light_saber_length <- 20
+number_of_animal_sabers_in_a_park <- 5000
 distance_between_transects <- 40.1
 
-point_1 <- c(-(light_sabor_length/2),(light_sabor_length/2))
+point_1 <- c(-(light_saber_length/2),(light_saber_length/2))
 point_2 <- c(0,0)
-single_sabor <-cbind(point_1, point_2)
-rownames(single_sabor)<- c("point_1","point_2")
-colnames(single_sabor)<- c("x","y")
-single_sabor
+single_saber <-cbind(point_1, point_2)
+rownames(single_saber)<- c("point_1","point_2")
+colnames(single_saber)<- c("x","y")
+single_saber
 ```
 
-```{r, echo=FALSE, fig.cap="Represent our lightsabor as a line with no width. A single beam of light."}
+```{r, echo=FALSE, fig.cap="Represent our lightsaber as a line with no width. A single beam of light."}
 par(mar=c(0,0,0,0))
 # image from Wiki commons
 ima <- readPNG("Lightsaber_blue_rotate.png")
@@ -53,17 +59,16 @@ plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="",
 #Get the plot information so the image will fill the plot box, and draw it
 lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
-lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=8)
+lines(single_saber, col=adjustcolor("#00bcff", 0.8), lwd=8)
 ```
 
-Then distribute the army of sabor-wielding critters across the landscape.
+## Then distribute the army of saber-wielding critters across the landscape.
 
-First we rotate around the origin to set the instantanious angle of each animal's
-individual sabor.
+### First we rotate around the origin to set the instantanious angle of each animal's individual saber.
 
 ```{r, echo=1:25}
   angle <- runif(1, min=1, max=360)*pi/180
-  xy <- as.matrix(single_sabor)
+  xy <- as.matrix(single_saber)
   
   # Rotation
   cos.angle <- cos(angle)
@@ -86,7 +91,7 @@ plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="",
 lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
-lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=8)
+lines(single_saber, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 abline(v=0)
 abline(h=0)
@@ -97,10 +102,10 @@ lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 
 
-Then we move (a.k.a. translate) the sabor to a location on the landscape where 
+Then we move (a.k.a. translate) the saber to a location on the landscape where 
 the critter is located. We assume that all the critters are battling vigously 
 and indescriminintly with each other so they are randomly distributed across 
-space and the angles of all the sabors are uniformly distributed. 
+space and the angles of all the sabers are uniformly distributed. 
 
 ```{r}
   # Translation
@@ -133,7 +138,7 @@ rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 abline(v=0)
 abline(h=0)
 
-lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=4)
+lines(single_saber, col=adjustcolor("#00bcff", 0.8), lwd=4)
 lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 ```
 
@@ -141,10 +146,10 @@ lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 Package that process into a function:
 
 ```{r}
-critter_sabor <- function(){
-  single_sabor <-cbind(c(-5,5),c(0,0))
+critter_saber <- function(){
+  single_saber <-cbind(c(-5,5),c(0,0))
   angle <- runif(1, min=1, max=360)*pi/180
-  xy <- as.matrix(single_sabor)
+  xy <- as.matrix(single_saber)
   
   # Rotation
   cos.angle <- cos(angle)
@@ -164,13 +169,13 @@ critter_sabor <- function(){
   return(new_coord)   
 }
 
-critter_sabor()
+critter_saber()
 ```
 
 Repeat it many times to create and army
 ```{r}
-for(i in 1:number_of_animal_sabors_in_a_park){
-critter_sabor()
+for(i in 1:number_of_animal_sabers_in_a_park){
+critter_saber()
 }
 ```
 
@@ -185,8 +190,8 @@ lim <- par()
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
 
-for(i in 1:number_of_animal_sabors_in_a_park){
-lines(critter_sabor(), col=adjustcolor("#00bcff", 0.4), lwd=1)
+for(i in 1:number_of_animal_sabers_in_a_park){
+lines(critter_saber(), col=adjustcolor("#00bcff", 0.4), lwd=1)
 }
 ```
 
@@ -214,9 +219,9 @@ lines(surface_line(30), col=adjustcolor("white", 0.8), lwd=3)
 
 ```{r}
 
-one_sabor <- critter_sabor()
+one_saber <- critter_saber()
 one_surface_line <- surface_line(30)
-line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
+line.line.intersection(one_saber[1,], one_saber[2,], one_surface_line[1,], 
                        one_surface_line[2,], interior.only = TRUE)
 ```
 
@@ -229,43 +234,49 @@ park <- readPNG("park.png")
 lim <- par()
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
-a <- line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
+a <- line.line.intersection(one_saber[1,], one_saber[2,], one_surface_line[1,], 
                             one_surface_line[2,], interior.only = TRUE)
 lines(one_surface_line, col=adjustcolor("white", 0.8), lwd=3)
-lines(one_sabor, col=adjustcolor("#00bcff", 0.8), lwd=3)
+lines(one_saber, col=adjustcolor("#00bcff", 0.8), lwd=3)
 points(a[1], a[2], cex=6, col="white")
 
-one_sabor_2 <- critter_sabor()
+one_saber_2 <- critter_saber()
 one_surface_line_2 <- surface_line(30)
-b <- line.line.intersection(one_sabor_2[1,], one_sabor_2[2,], 
+b <- line.line.intersection(one_saber_2[1,], one_saber_2[2,], 
                             one_surface_line_2[1,], one_surface_line_2[2,], 
                             interior.only = TRUE)
-lines(one_sabor_2, col=adjustcolor("#00bcff", 0.8), lwd=3)
+lines(one_saber_2, col=adjustcolor("#00bcff", 0.8), lwd=3)
 points(b[1], b[2], cex=6, col="white")
 ```
 
 
 
 
-Make a list of surface lines and a list of matches
+
+```{r, echo=FALSE, fig.cap="Team prepares for transects", out.width = '100%'}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
+     xlim=c(-20,20), ylim=c(-4,4))
+#Get the plot information so the image will fill the plot box, and draw it
+ima <- readPNG("wp2848056.png")
+lim <- par()
+rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+```
+
+### Prepare a list of all transects and all critter sabers so we can calculate contacts between them
 
 ```{r}
-list_of_matches <- array(NA,dim = c(2,2,number_of_animal_sabors_in_a_park))
+list_of_matches <- array(NA,dim = c(2,2,number_of_animal_sabers_in_a_park))
 list_of_surface_lines <- array(NA,dim = c(2,2,6))
 
-for(i in 1:number_of_animal_sabors_in_a_park){
-  list_of_matches[,,i] <- critter_sabor()
+for(i in 1:number_of_animal_sabers_in_a_park){
+  list_of_matches[,,i] <- critter_saber()
 }
 
 line_placement <- seq(0,100, by=20)
 for(i in 1:6){
   list_of_surface_lines[,,i] <- surface_line(line_placement[i])
 }
-```
-
-
-```{r, echo=FALSE, fig.cap="Me and the team preparing for our transects.", out.width = '100%'}
-knitr::include_graphics("wp2848056.png")
 ```
 
 
@@ -284,13 +295,13 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 1), lwd=3)
 
 }
 
-for(i in 1:number_of_animal_sabors_in_a_park){
+for(i in 1:number_of_animal_sabers_in_a_park){
 lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
 }
 
 ```
 
-
+### Calculate which sabers crossed my transect
 ```{r}
 crosses <- matrix(NA, 1, 10, byrow=TRUE)
 
@@ -322,7 +333,7 @@ plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="",
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
 
-for(i in 1:number_of_animal_sabors_in_a_park){
+for(i in 1:number_of_animal_sabers_in_a_park){
 lines(list_of_matches[,,i], col=adjustcolor("white", 0.6), lwd=2)
 }
 
@@ -338,13 +349,14 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
 ```
 
 
+## Calculate Pi
+
+### We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
 
 ```{r}
-pi_estimate <- (2* light_sabor_length * number_of_animal_sabors_in_a_park)/(distance_between_transects * length(crosses[,1]))
+pi_estimate <- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate
 ```
-
-## We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
 
 # Happy Pi Day!
