@@ -71,16 +71,16 @@
     <div class="article-content">
       <div id="happy-pi-day-everyone" class="section level1">
 <h1>Happy Pi Day everyone!!</h1>
-<div id="since-the-date-today-is-the-first-three-digits-of-pi-3.14-i-thought-i-would-celebrate-by-deriving-an-approximation-of-pi-using-a-lightsaber-battle.-i-will-first-build-an-army-of-saber-wielding-critters-in-la-fountaine-park-and-then-make-a-few-transects-through-those-battles-and-count-the-number-of-contacts-we-make-with-critter-sabers-on-along-the-way.-when-were-done-we-take-a-ratio-of-hits-vs.misses-to-estimate-pi." class="section level2">
-<h2>Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we’re done, we take a ratio of hits vs. misses to estimate Pi.</h2>
-<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-light-sabers-and-taken-over-montreal." class="section level3">
-<h3>We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal.</h3>
+<div id="since-the-date-today-is-the-first-three-digits-of-pi-3.14-i-thought-i-would-celebrate-by-deriving-an-approximation-of-pi-using-a-lightsaber-battle.-i-will-first-build-an-army-of-saber-wielding-critters-in-la-fountaine-park-and-then-make-a-few-transects-through-those-battles-and-count-the-number-of-contacts-we-make-with-critter-sabers-on-along-the-way.-when-were-done-we-take-a-ratio-of-hits-vs.misses-to-estimate-pi." class="section level3">
+<h3>Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we’re done, we take a ratio of hits vs. misses to estimate Pi.</h3>
+</div>
+<div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-light-sabers-and-taken-over-montreal." class="section level2">
+<h2>We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal.</h2>
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
 <img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-2-1.png" alt="Future squirels battle for food scraps near homeless man's dome tent." width="100%" />
 <p class="caption">
 Figure 1: Future squirels battle for food scraps near homeless man’s dome tent.
 </p>
-</div>
 </div>
 <div id="to-battle-these-savage-beasts-we-must-learn-to-make-our-own-light-saber." class="section level3">
 <h3>To battle these savage beasts, we must learn to make our own light saber.</h3>
@@ -130,9 +130,7 @@ Figure 3: We rotate the lightsaber around the origin to change its angle.
 </p>
 </div>
 <p>Then we move (a.k.a. translate) the saber to a location on the landscape where
-the critter is located. We assume that all the critters are battling vigously
-and indescriminintly with each other so they are randomly distributed across
-space and the angles of all the sabers are uniformly distributed.</p>
+the critter is located.</p>
 <pre class="r"><code>  # Translation
   translation.x &lt;- runif(1, min=10, max=90)
   translation.y &lt;- runif(1, min=10, max=90)
@@ -147,7 +145,7 @@ space and the angles of all the sabers are uniformly distributed.</p>
 Figure 4: After the angle is set, translate the lightsaber to a random location on the battlefield.
 </p>
 </div>
-<p>Package that process into a function:</p>
+<p>Create a function to rotate and distribute sabers to all the critters on the battlefield.</p>
 <pre class="r"><code>critter_saber &lt;- function(){
   single_saber &lt;-cbind(c(-5,5),c(0,0))
   angle &lt;- runif(1, min=1, max=360)*pi/180
@@ -179,6 +177,9 @@ critter_saber()</code></pre>
 <pre class="r"><code>for(i in 1:number_of_animal_sabers_in_a_park){
 critter_saber()
 }</code></pre>
+<p>We assume that all the critters are battling vigously
+and indescriminintly with each other so they are randomly distributed across
+space and the angles of all the sabers are uniformly distributed.</p>
 <div class="figure"><span id="fig:unnamed-chunk-12"></span>
 <img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-12-1.png" alt="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect." width="672" />
 <p class="caption">
@@ -214,9 +215,7 @@ Figure 7: Build a mechanism to identify when a lightsaber has crossed my transec
 Figure 8: Team prepares for transects
 </p>
 </div>
-</div>
-<div id="prepare-a-list-of-all-transects-and-all-critter-sabers-so-we-can-calculate-contacts-between-them" class="section level3">
-<h3>Prepare a list of all transects and all critter sabers so we can calculate contacts between them</h3>
+<p>Prepare a list of all transects and all critter sabers so we can calculate contacts between them</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_animal_sabers_in_a_park))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
 
@@ -234,9 +233,7 @@ for(i in 1:6){
 Figure 9: After the angle is set, translate the lightsaber to a random location on the battlefield.
 </p>
 </div>
-</div>
-<div id="calculate-which-sabers-crossed-my-transect" class="section level3">
-<h3>Calculate which sabers crossed my transect</h3>
+<p>Calculate which sabers crossed my transect.</p>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -277,17 +274,15 @@ head(crosses)</code></pre>
 Figure 10: All the lightsabers we struck on my transect.
 </p>
 </div>
+<p>Calculate Pi</p>
 </div>
-<div id="calculate-pi" class="section level3">
-<h3>Calculate Pi</h3>
+<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-and-we-get-a-great-approximation-of-pi" class="section level3">
+<h3>We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi!</h3>
 <pre class="r"><code>pi_estimate &lt;- (2* light_saber_length * number_of_animal_sabers_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate</code></pre>
 <pre><code>## [1] 3.1427417593382642735</code></pre>
 </div>
-</div>
-<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-and-we-get-a-great-approximation-of-pi" class="section level2">
-<h2>We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi!</h2>
 </div>
 </div>
 <div id="happy-pi-day" class="section level1">

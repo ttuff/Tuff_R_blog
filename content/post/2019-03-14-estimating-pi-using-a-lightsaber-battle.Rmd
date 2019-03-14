@@ -18,9 +18,9 @@ library(png)
 
 # Happy Pi Day everyone!! 
 
-## Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we're done, we take a ratio of hits vs. misses to estimate Pi.
+### Since the date today is the first three digits of Pi (3.14), I thought I would celebrate by deriving an approximation of Pi using a lightsaber battle. I will first build an army of saber-wielding critters in La Fountaine park and then make a few transects through those battles and count the number of contacts we make with critter-sabers on along the way. When we're done, we take a ratio of hits vs. misses to estimate Pi.
 
-### We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal. 
+## We start in a futuristic world where urban wildlife have aquired light sabers and taken over Montreal. 
 
 ```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
 par(mar=c(0,0,0,0))
@@ -103,9 +103,7 @@ lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
 
 
 Then we move (a.k.a. translate) the saber to a location on the landscape where 
-the critter is located. We assume that all the critters are battling vigously 
-and indescriminintly with each other so they are randomly distributed across 
-space and the angles of all the sabers are uniformly distributed. 
+the critter is located. 
 
 ```{r}
   # Translation
@@ -143,7 +141,7 @@ lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 ```
 
 
-Package that process into a function:
+Create a function to rotate and distribute sabers to all the critters on the battlefield.
 
 ```{r}
 critter_saber <- function(){
@@ -179,6 +177,9 @@ critter_saber()
 }
 ```
 
+We assume that all the critters are battling vigously 
+and indescriminintly with each other so they are randomly distributed across 
+space and the angles of all the sabers are uniformly distributed. 
 
 ```{r, echo=FALSE, fig.cap="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect."}
 par(mar=c(0,0,0,0))
@@ -263,7 +264,7 @@ lim <- par()
 rasterImage(ima, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
 ```
 
-### Prepare a list of all transects and all critter sabers so we can calculate contacts between them
+Prepare a list of all transects and all critter sabers so we can calculate contacts between them
 
 ```{r}
 list_of_matches <- array(NA,dim = c(2,2,number_of_animal_sabers_in_a_park))
@@ -301,7 +302,7 @@ lines(list_of_matches[,,i], col=adjustcolor("#00bcff", 0.2), lwd=2)
 
 ```
 
-### Calculate which sabers crossed my transect
+Calculate which sabers crossed my transect.
 ```{r}
 crosses <- matrix(NA, 1, 10, byrow=TRUE)
 
@@ -349,7 +350,7 @@ lines(list_of_surface_lines[,,i], col=adjustcolor("white", 0.3), lwd=3)
 ```
 
 
-## Calculate Pi
+Calculate Pi
 
 ### We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
 
