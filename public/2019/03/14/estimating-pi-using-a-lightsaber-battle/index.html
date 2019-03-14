@@ -59,7 +59,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">4 min read</span>
     
 
     <h1 class="article-title">Estimating Pi using a lightsaber battle</h1>
@@ -76,9 +76,11 @@
 </div>
 <div id="we-start-in-a-futuristic-world-where-urban-wildlife-have-aquired-light-sabors-and-taken-over-montreal." class="section level3">
 <h3>We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal.</h3>
-<div class="figure">
-<img src="animals-with-lightsabers-11.png" alt="Future squirels battle for food scraps near homeless man’s dome tent" />
-<p class="caption">Future squirels battle for food scraps near homeless man’s dome tent</p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="animals-with-lightsabers-11.png" alt="Future squirels battle for food scraps near homeless man's dome tent." width="100%" />
+<p class="caption">
+Figure 1: Future squirels battle for food scraps near homeless man’s dome tent.
+</p>
 </div>
 <p>To battle these savage beasts, we must learn to make our own light sabor.</p>
 <pre class="r"><code>set.seed(1.1)
@@ -95,7 +97,12 @@ single_sabor</code></pre>
 <pre><code>##           x y
 ## point_1 -10 0
 ## point_2  10 0</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-4-1.png" alt="Represent our lightsabor as a line with no width. A single beam of light." width="672" />
+<p class="caption">
+Figure 2: Represent our lightsabor as a line with no width. A single beam of light.
+</p>
+</div>
 <p>Then distribute the army of sabor-wielding critters across the landscape.</p>
 <p>First we rotate around the origin to set the instantanious angle of each animal’s
 individual sabor.</p>
@@ -112,7 +119,12 @@ after_rotation</code></pre>
 <pre><code>##              [,1]      [,2]
 ## point_1  1.100398 -9.939272
 ## point_2 -1.100398  9.939272</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-6-1.png" alt="We rotate the lightsaber around the origin to change its angle." width="672" />
+<p class="caption">
+Figure 3: We rotate the lightsaber around the origin to change its angle.
+</p>
+</div>
 <p>Then we move (a.k.a. translate) the sabor to a location on the landscape where
 the critter is located. We assume that all the critters are battling vigously
 and indescriminintly with each other so they are randomly distributed across
@@ -125,8 +137,13 @@ space and the angles of all the sabors are uniformly distributed.</p>
   new_coord &lt;- after_rotation + translation
   colnames(new_coord) &lt;- c(&quot;x&quot;,&quot;y&quot;)
   rownames(new_coord) &lt;- c(&quot;Point_1&quot;,&quot;Point_2&quot;)</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>Repeat for an entire box of matches</p>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-9-1.png" alt="After the angle is set, translate the lightsaber to a random location on the battlefield." width="672" />
+<p class="caption">
+Figure 4: After the angle is set, translate the lightsaber to a random location on the battlefield.
+</p>
+</div>
+<p>Package that process into a function:</p>
 <pre class="r"><code>critter_sabor &lt;- function(){
   single_sabor &lt;-cbind(c(-5,5),c(0,0))
   angle &lt;- runif(1, min=1, max=360)*pi/180
@@ -154,23 +171,39 @@ critter_sabor()</code></pre>
 <pre><code>##                x        y
 ## Point_1 21.93899 84.59096
 ## Point_2 30.33012 79.15139</code></pre>
+<p>Repeat it many times to create and army</p>
 <pre class="r"><code>for(i in 1:number_of_animal_sabors_in_a_park){
 critter_sabor()
 }</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-12"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-12-1.png" alt="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect." width="672" />
+<p class="caption">
+Figure 5: An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter’s lightsaber at the moment we pass them on our transect.
+</p>
+</div>
 <pre class="r"><code>surface_line &lt;- function(line_height = 0){
   matrix(c(0,100,line_height,line_height), 2, 2, byrow=FALSE)
   }</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    0   20
 ## [2,]  100   20</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-14"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-14-1.png" alt="My transect through the army of critters." width="672" />
+<p class="caption">
+Figure 6: My transect through the army of critters.
+</p>
+</div>
 <pre class="r"><code>one_sabor &lt;- critter_sabor()
 one_surface_line &lt;- surface_line(30)
 line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
                        one_surface_line[2,], interior.only = TRUE)</code></pre>
 <pre><code>## [1] 75.73794 30.00000</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-16"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-16-1.png" alt="Build a mechanism to identify when a lightsaber has crossed my transect line." width="672" />
+<p class="caption">
+Figure 7: Build a mechanism to identify when a lightsaber has crossed my transect line.
+</p>
+</div>
 <p>Make a list of surface lines and a list of matches</p>
 <pre class="r"><code>list_of_matches &lt;- array(NA,dim = c(2,2,number_of_animal_sabors_in_a_park))
 list_of_surface_lines &lt;- array(NA,dim = c(2,2,6))
@@ -183,11 +216,18 @@ line_placement &lt;- seq(0,100, by=20)
 for(i in 1:6){
   list_of_surface_lines[,,i] &lt;- surface_line(line_placement[i])
 }</code></pre>
-<div class="figure">
-<img src="wp2848056.png" alt="Me and my team planning our transects" />
-<p class="caption">Me and my team planning our transects</p>
+<div class="figure"><span id="fig:unnamed-chunk-18"></span>
+<img src="wp2848056.png" alt="Me and the team preparing for our transects." width="100%" />
+<p class="caption">
+Figure 8: Me and the team preparing for our transects.
+</p>
 </div>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-19"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" alt="After the angle is set, translate the lightsaber to a random location on the battlefield." width="672" />
+<p class="caption">
+Figure 9: After the angle is set, translate the lightsaber to a random location on the battlefield.
+</p>
+</div>
 <pre class="r"><code>crosses &lt;- matrix(NA, 1, 10, byrow=TRUE)
 
 for(i in 1:dim(list_of_matches)[3]){
@@ -222,12 +262,23 @@ head(crosses)</code></pre>
 ## [4,]           20          100           20
 ## [5,]           20          100           20
 ## [6,]           20          100           20</code></pre>
-<p><img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="figure"><span id="fig:unnamed-chunk-21"></span>
+<img src="/post/2019-03-14-estimating-pi-using-a-lightsaber-battle_files/figure-html/unnamed-chunk-21-1.png" alt="All the lightsabers we struck on my transect." width="672" />
+<p class="caption">
+Figure 10: All the lightsabers we struck on my transect.
+</p>
+</div>
 <pre class="r"><code>pi_estimate &lt;- (2* light_sabor_length * number_of_animal_sabors_in_a_park)/(distance_between_transects * length(crosses[,1]))
 options(digits=20)
 pi_estimate</code></pre>
 <pre><code>## [1] 3.1427417593382642735</code></pre>
 </div>
+<div id="we-take-the-ratio-of-the-lightsabers-we-made-contact-with-againt-the-ones-we-missed-and-we-get-a-great-approximation-of-pi" class="section level2">
+<h2>We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi!</h2>
+</div>
+</div>
+<div id="happy-pi-day" class="section level1">
+<h1>Happy Pi Day!</h1>
 </div>
 
     </div>

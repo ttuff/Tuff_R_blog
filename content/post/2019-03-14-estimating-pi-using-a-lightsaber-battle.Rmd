@@ -9,26 +9,16 @@ tags:
 categories: pi day games
 ---
 
----
-title: Calculating Pi using a lightsaber battle
-author: Ty Tuff
-date: '2019-03-14'
-slug: calculating-pi-using-a-lightsaber-battle
-categories:
-  - pi day games
-tags:
-  - Pi day
-  - Pi
----
-
-
 # Happy Pi Day everyone!! 
 
 ### Since the date today approximates pi (3.14), I thought I would celebrate by deriving an approximation of pi using light sabors. 
 
 ### We start in a futuristic world where urban wildlife have aquired light sabors and taken over Montreal. 
 
-![Future squirels battle for food scraps near homeless man's dome tent](animals-with-lightsabers-11.png) 
+```{r, echo=FALSE, fig.cap="Future squirels battle for food scraps near homeless man's dome tent.", out.width = '100%'}
+knitr::include_graphics("animals-with-lightsabers-11.png")
+```
+
 
 ```{r, echo=FALSE}
 library(retistruct)
@@ -53,7 +43,7 @@ colnames(single_sabor)<- c("x","y")
 single_sabor
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="Represent our lightsabor as a line with no width. A single beam of light."}
 par(mar=c(0,0,0,0))
 # image from Wiki commons
 ima <- readPNG("Lightsaber_blue_rotate.png")
@@ -72,7 +62,6 @@ First we rotate around the origin to set the instantanious angle of each animal'
 individual sabor.
 
 ```{r, echo=1:25}
-
   angle <- runif(1, min=1, max=360)*pi/180
   xy <- as.matrix(single_sabor)
   
@@ -83,16 +72,13 @@ individual sabor.
         cos.angle), 2, 2))
   
 after_rotation
-
-
-
 ```
 
 
 
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="We rotate the lightsaber around the origin to change its angle."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-10,10), ylim=c(-10,10))
@@ -105,8 +91,6 @@ lines(single_sabor, col=adjustcolor("#00bcff", 0.8), lwd=8)
 abline(v=0)
 abline(h=0)
 lines(after_rotation, col=adjustcolor("#00bcff", 0.8), lwd=8)
-
-
 ```
 
 
@@ -127,7 +111,6 @@ space and the angles of all the sabors are uniformly distributed.
   new_coord <- after_rotation + translation
   colnames(new_coord) <- c("x","y")
   rownames(new_coord) <- c("Point_1","Point_2")
-  
 ```
 
 
@@ -136,7 +119,7 @@ new_coord <- after_rotation + matrix(c(50,50,50,50),2,2)
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="After the angle is set, translate the lightsaber to a random location on the battlefield."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-10,301), ylim=c(-10,301))
@@ -155,7 +138,7 @@ lines(new_coord, col=adjustcolor("#00bcff", 1), lwd=4)
 ```
 
 
-Repeat for an entire box of matches
+Package that process into a function:
 
 ```{r}
 critter_sabor <- function(){
@@ -184,6 +167,7 @@ critter_sabor <- function(){
 critter_sabor()
 ```
 
+Repeat it many times to create and army
 ```{r}
 for(i in 1:number_of_animal_sabors_in_a_park){
 critter_sabor()
@@ -191,7 +175,7 @@ critter_sabor()
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="An army of lightsaber-wielding critters in the middle of La Fountaine park. This is the position of each critter's lightsaber at the moment we pass them on our transect."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
@@ -214,10 +198,12 @@ surface_line <- function(line_height = 0){
 surface_line(20)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="My transect through the army of critters."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
+park <- readPNG("park.png")
+lim <- par()
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
 
@@ -235,10 +221,12 @@ line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,],
 ```
 
 
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=FALSE, fig.cap="Build a mechanism to identify when a lightsaber has crossed my transect line."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
+park <- readPNG("park.png")
+lim <- par()
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
 a <- line.line.intersection(one_sabor[1,], one_sabor[2,], one_surface_line[1,], 
@@ -275,14 +263,20 @@ for(i in 1:6){
 }
 ```
 
-![Me and my team planning our transects](wp2848056.png)
+
+```{r, echo=FALSE, fig.cap="Me and the team preparing for our transects.", out.width = '100%'}
+knitr::include_graphics("wp2848056.png")
+```
 
 
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, fig.cap="After the angle is set, translate the lightsaber to a random location on the battlefield."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
 
+park <- readPNG("park.png")
+lim <- par()
 rasterImage(park, lim$usr[1], lim$usr[3], lim$usr[2]-0.5, lim$usr[4])
 
 for(i in 1:6){
@@ -321,7 +315,7 @@ head(crosses)
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.cap="All the lightsabers we struck on my transect."}
 par(mar=c(0,0,0,0))
 plot(0,0,type="n", xaxt="n", yaxt="n", bty="n", xlab="", ylab="", 
      xlim=c(-1,101), ylim=c(-1,101))
@@ -351,3 +345,6 @@ options(digits=20)
 pi_estimate
 ```
 
+## We take the ratio of the lightsabers we made contact with againt the ones we missed and we get a great approximation of Pi! 
+
+# Happy Pi Day!
